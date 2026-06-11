@@ -37,7 +37,10 @@ def main():
     class Handler(http.server.BaseHTTPRequestHandler):
         def do_GET(self):
             qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
-            code_holder["code"] = qs.get("code", [""])[0]
+            if qs.get("code"):
+                code_holder["code"] = qs["code"][0]
+            elif qs.get("error"):
+                code_holder["error"] = qs["error"][0]
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"Done - return to the terminal.")
@@ -46,7 +49,10 @@ def main():
             pass
 
     with http.server.HTTPServer(("localhost", PORT), Handler) as srv:
-        srv.handle_request()
+        while not code_holder:               # ignore favicon and stray requests
+            srv.handle_request()
+    if "error" in code_holder:
+        raise SystemExit(f"consent failed: {code_holder['error']}")
 
     resp = requests.post("https://oauth2.googleapis.com/token", data={
         "client_id": client_id,
