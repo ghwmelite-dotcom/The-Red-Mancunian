@@ -1,0 +1,104 @@
+{
+  "feeds": [
+    {
+      "name": "BBC Sport - Man Utd",
+      "tier": 1,
+      "type": "rss",
+      "enabled": true,
+      "url": "https://feeds.bbci.co.uk/sport/football/teams/manchester-united/rss.xml"
+    },
+    {
+      "name": "Sky Sports Football",
+      "tier": 1,
+      "type": "rss",
+      "enabled": true,
+      "url": "https://www.skysports.com/rss/11095"
+    },
+    {
+      "name": "The Guardian - Man Utd",
+      "tier": 1,
+      "type": "rss",
+      "enabled": true,
+      "note": "Domain may block WebFetch (verified Jun 2026) - skip without retry if it fails; its stories surface via Google News anyway",
+      "url": "https://www.theguardian.com/football/manchester-united/rss"
+    },
+    {
+      "name": "Manchester Evening News - Man Utd",
+      "tier": 2,
+      "type": "rss",
+      "enabled": true,
+      "note": "Domain may block WebFetch (verified Jun 2026) - skip without retry if it fails; its stories surface via Google News anyway",
+      "url": "https://www.manchestereveningnews.co.uk/all-about/manchester-united-fc?service=rss"
+    },
+    {
+      "name": "Google News - Manchester United",
+      "tier": 2,
+      "type": "rss",
+      "enabled": true,
+      "url": "https://news.google.com/rss/search?q=%22Manchester%20United%22&hl=en-GB&gl=GB&ceid=GB:en"
+    },
+    {
+      "name": "Sky Sports - Man Utd news page",
+      "tier": 1,
+      "type": "page",
+      "enabled": true,
+      "note": "Dedicated United page - use this for United stories; the general Sky football RSS (11095) often has zero United items. Verify article dates before scoring, listing-page dates can be unreliable.",
+      "url": "https://www.skysports.com/manchester-united-news"
+    },
+    {
+      "name": "The Athletic - Man Utd",
+      "tier": 1,
+      "type": "curl",
+      "enabled": true,
+      "note": "Blocks nothing via curl with a browser User-Agent (verified Jun 2026) but article bodies are paywalled - use headlines/standfirsts for discovery, then corroborate via WebSearch (Whitwell/Ornstein searches). Home of the best United beat reporting.",
+      "url": "https://www.nytimes.com/athletic/football/team/manchester-united/"
+    },
+    {
+      "name": "r/reddevils breaking-news radar",
+      "tier": 3,
+      "type": "curl",
+      "enabled": true,
+      "note": "Fastest surface for breaking United news, but it is a fan aggregator - NEVER source a story from here; use it only to discover what is breaking, then verify with a tier-1 source. Fetch via curl with a browser User-Agent (Atom feed).",
+      "url": "https://www.reddit.com/r/reddevils/.rss"
+    },
+    {
+      "name": "Man Utd official news",
+      "tier": 1,
+      "type": "curl",
+      "enabled": true,
+      "note": "Blocks WebFetch (Imperva 403) but serves plain curl with a browser User-Agent (verified Jun 2026). Fetch via Bash: curl -s -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36' <url> then grep href=\"/en/news/...\" for article slugs (slug reads as headline); curl each article URL the same way and grep <title>, \"description\" and datePublished for details. The only OFFICIAL-status source.",
+      "url": "https://www.manutd.com/en/news"
+    }
+  ],
+  "searches": [
+    {
+      "name": "Fabrizio Romano - United",
+      "tier": 1,
+      "enabled": true,
+      "query": "Fabrizio Romano Manchester United transfer"
+    },
+    {
+      "name": "David Ornstein - United",
+      "tier": 1,
+      "enabled": true,
+      "query": "David Ornstein Manchester United"
+    },
+    {
+      "name": "Laurie Whitwell - United",
+      "tier": 1,
+      "enabled": true,
+      "query": "Laurie Whitwell Manchester United"
+    },
+    {
+      "name": "Steven Railston - United (MEN)",
+      "tier": 2,
+      "enabled": true,
+      "query": "Steven Railston Manchester United"
+    }
+  ],
+  "tier_meaning": {
+    "1": "Can yield OFFICIAL/CONFIRMED/REPORTED status",
+    "2": "REPORTED at best, always attributed",
+    "3": "RUMOUR only, always attributed (tabloids surface via Google News)"
+  }
+}

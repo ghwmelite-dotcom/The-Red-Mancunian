@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-11-fixture-derby-win",
+  "date": "2026-06-11",
+  "category": "MATCHDAY",
+  "status": "CONFIRMED",
+  "source": "Full-time result",
+  "mood": "roar",
+  "hook": { "text": "UNITED WIN THE DERBY 3-1", "highlight": "WIN THE DERBY" },
+  "beats": [
+    { "text": "TWO GOALS IN FIVE FIRST-HALF MINUTES", "highlight": "FIVE" },
+    { "text": "ACADEMY KID GETS THE THIRD", "highlight": "ACADEMY KID" },
+    { "text": "OLD TRAFFORD IS BOUNCING", "highlight": "BOUNCING" }
+  ],
+  "caption": "3-1 in the derby and an academy kid seals it. Who was your man of the match? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#manchesterderby", "#premierleague", "#football"]
+}

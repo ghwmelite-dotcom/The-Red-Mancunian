@@ -1,0 +1,15 @@
+{
+  "id": "2026-06-11-fixture-contract-news",
+  "date": "2026-06-11",
+  "category": "CLUB",
+  "status": "OFFICIAL",
+  "source": "Club statement",
+  "mood": "confident",
+  "hook": { "text": "CAPTAIN SIGNS NEW DEAL TO 2031", "highlight": "NEW DEAL" },
+  "beats": [
+    { "text": "FIVE MORE YEARS AT OLD TRAFFORD", "highlight": "FIVE MORE YEARS" },
+    { "text": "CLUB CONFIRMS NO RELEASE CLAUSE", "highlight": "NO RELEASE CLAUSE" }
+  ],
+  "caption": "It's official - the skipper stays until 2031. Right call? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football"]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-11-anderson-bidding-war",
+  "date": "2026-06-11",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "The Athletic",
+  "mood": "tension",
+  "hook": { "text": "UNITED QUIT THE £120M ANDERSON RACE", "highlight": "£120M" },
+  "beats": [
+    { "text": "CITY BID £106M AND FOREST STILL SAID NO", "highlight": "£106M" },
+    { "text": "UNITED REFUSE TO JOIN A BIDDING WAR", "highlight": "REFUSE" },
+    { "text": "NEW TARGETS: MATEUS FERNANDES AND ALEX SCOTT", "highlight": "MATEUS FERNANDES" }
+  ],
+  "caption": "City bid £106m for Elliot Anderson and United walked away — Ornstein says the new targets are Mateus Fernandes and Alex Scott. Smart business or surrendering to City? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow"]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-11-rashford-barca-deadline",
+  "date": "2026-06-11",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "BBC Sport",
+  "mood": "tension",
+  "hook": { "text": "BARCELONA HAVE 4 DAYS TO SIGN RASHFORD", "highlight": "4 DAYS" },
+  "beats": [
+    { "text": "PAY £26M BY JUNE 15 OR HE COMES HOME", "highlight": "£26M" },
+    { "text": "BARCA WANT ANOTHER LOAN BUT UNITED SAY NO", "highlight": "SAY NO" },
+    { "text": "14 GOALS AND 14 ASSISTS IN SPAIN THIS SEASON", "highlight": "14 GOALS" }
+  ],
+  "caption": "Barcelona have until June 15 to pay £26m for Rashford or he returns to Old Trafford, per BBC Sport. Pay up, another loan, or bring him home? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#transfernews", "#transferwindow", "#rashford", "#premierleague", "#football"]
+}

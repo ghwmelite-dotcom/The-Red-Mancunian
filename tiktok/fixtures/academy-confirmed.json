@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-11-fixture-academy-debut",
+  "date": "2026-06-11",
+  "category": "ACADEMY",
+  "status": "REPORTED",
+  "source": "Manchester Evening News",
+  "mood": "celebrate",
+  "hook": { "text": "16-YEAR-OLD SET FOR FIRST-TEAM DEBUT", "highlight": "16-YEAR-OLD" },
+  "beats": [
+    { "text": "TOP SCORER FOR THE U18S THIS SEASON", "highlight": "TOP SCORER" },
+    { "text": "TRAINED WITH THE SENIORS ALL WEEK", "highlight": "ALL WEEK" },
+    { "text": "THE ACADEMY CONVEYOR BELT ROLLS ON", "highlight": "CONVEYOR BELT" }
+  ],
+  "caption": "Another one off the academy line - 16 and ready for the first team. Remember the name. 🔴",
+  "hashtags": ["#mufc", "#manutd", "#mufcacademy", "#wonderkid", "#football"]
+}

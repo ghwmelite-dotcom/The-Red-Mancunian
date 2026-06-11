@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-11-left-back-hunt",
+  "date": "2026-06-11",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Sky Sports",
+  "mood": "tension",
+  "hook": { "text": "UNITED WANT A NEW LEFT-BACK", "highlight": "NEW LEFT-BACK" },
+  "beats": [
+    { "text": "SHAW IS THE ONLY SENIOR LEFT-BACK LEFT", "highlight": "ONLY" },
+    { "text": "NEWCASTLE'S LEWIS HALL IS BEING WATCHED", "highlight": "LEWIS HALL" },
+    { "text": "FULHAM'S ANTONEE ROBINSON IS THE ALTERNATIVE", "highlight": "ANTONEE ROBINSON" }
+  ],
+  "caption": "Sky Sports say United are monitoring Lewis Hall and Antonee Robinson — Luke Shaw is the only senior left-back at the club after Malacia's exit. Who should they go for? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow"]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-11-fixture-striker-fee",
+  "date": "2026-06-11",
+  "category": "TRANSFER",
+  "status": "RUMOUR",
+  "source": "Sky Sports",
+  "mood": "tension",
+  "hook": { "text": "UNITED AGREE £55M FEE", "highlight": "£55M FEE" },
+  "beats": [
+    { "text": "PERSONAL TERMS EXPECTED THIS WEEK", "highlight": "THIS WEEK" },
+    { "text": "MEDICAL PLANNED FOR FRIDAY", "highlight": "FRIDAY" },
+    { "text": "A NEW NUMBER 9 AT OLD TRAFFORD", "highlight": "NUMBER 9" }
+  ],
+  "caption": "United have reportedly agreed a £55m fee — personal terms next. Good deal or panic buy? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#transfernews", "#premierleague", "#football"]
+}

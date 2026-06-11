@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-11-rashford-returns",
+  "date": "2026-06-11",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Marca",
+  "mood": "react",
+  "hook": { "text": "RASHFORD IS COMING BACK TO UNITED", "highlight": "COMING BACK" },
+  "beats": [
+    { "text": "BARCELONA REFUSE TO TRIGGER THE £26M OPTION", "highlight": "£26M OPTION" },
+    { "text": "ANTHONY GORDON TOOK HIS SPOT IN FLICK'S PLANS", "highlight": "TOOK HIS SPOT" },
+    { "text": "NOW UNITED MUST DECIDE HIS FUTURE", "highlight": "HIS FUTURE" }
+  ],
+  "caption": "Barcelona won't pay the £26m — Rashford is coming back to Old Trafford. Keep him or sell him? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#rashford", "#transfernews", "#premierleague"]
+}
