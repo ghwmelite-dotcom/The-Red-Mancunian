@@ -1,0 +1,6 @@
+name = "red-mancunian-approval"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+
+[vars]
+GH_REPO = "ghwmelite-dotcom/The-Red-Mancunian"
