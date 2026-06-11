@@ -1,6 +1,8 @@
 import json
 from datetime import datetime, timezone
 
+import pytest
+
 import publish
 
 
@@ -58,3 +60,20 @@ def test_run_uploads_and_replies(tmp_path, monkeypatch):
     publish.run(root, "2026-06-11-hall", reply_to="9", privacy="unlisted", now=now)
     assert "youtube.com/shorts/vid123" in sent[0][1]["text"]
     assert sent[0][1]["reply_to_message_id"] == "9"
+
+
+def test_locate_missing_raises_file_not_found(tmp_path):
+    with pytest.raises(FileNotFoundError, match="not found"):
+        publish.locate(tmp_path, "2026-06-11-missing")
+
+
+def test_alert_failure_sends_retry_button(monkeypatch):
+    sent = []
+    monkeypatch.setattr(publish.telegram_bot, "call",
+                        lambda method, **p: sent.append((method, p)) or {})
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "42")
+    publish._alert_failure("2026-06-11-hall", "777", ValueError("boom"))
+    assert sent[0][0] == "sendMessage"
+    kb = json.loads(sent[0][1]["reply_markup"])
+    assert kb["inline_keyboard"][0][0]["callback_data"] == "ok:777:2026-06-11-hall"
+    assert "boom" in sent[0][1]["text"]

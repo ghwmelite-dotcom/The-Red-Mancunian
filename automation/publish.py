@@ -9,6 +9,7 @@ original approve button) and exits non-zero.
 """
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,7 +22,10 @@ MAX_AGE_HOURS = 12
 
 def locate(root: Path, story_id: str) -> dict:
     root = Path(root)
-    mp4 = next(root.glob(f"**/{story_id}-youtube.mp4"))
+    mp4 = next(root.glob(f"**/{story_id}-youtube.mp4"), None)
+    if mp4 is None:
+        raise FileNotFoundError(
+            f"{story_id}-youtube.mp4 not found under {root} - check artifact download")
     day = mp4.parent
     return {
         "mp4": mp4,
@@ -36,7 +40,6 @@ def title_for(files: dict) -> str:
 
 
 def run(root, story_id, reply_to, privacy, now=None) -> None:
-    import os
     now = now or datetime.now(timezone.utc)
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     files = locate(root, story_id)
@@ -58,7 +61,6 @@ def run(root, story_id, reply_to, privacy, now=None) -> None:
 
 
 def _alert_failure(story_id: str, run_id: str, error: Exception) -> None:
-    import os
     keyboard = {"inline_keyboard": [[
         {"text": "\U0001f501 Retry", "callback_data": f"ok:{run_id}:{story_id}"}]]}
     telegram_bot.call("sendMessage", chat_id=os.environ["TELEGRAM_CHAT_ID"],
