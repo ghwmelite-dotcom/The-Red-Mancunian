@@ -13,6 +13,8 @@ UPLOAD_URL = ("https://www.googleapis.com/upload/youtube/v3/videos"
 
 
 def is_stale(rendered_at_iso: str, now: datetime, max_hours: int = 12) -> bool:
+    if now.tzinfo is None:
+        raise ValueError("'now' must be timezone-aware")
     rendered = datetime.fromisoformat(rendered_at_iso)
     return (now - rendered).total_seconds() > max_hours * 3600
 
