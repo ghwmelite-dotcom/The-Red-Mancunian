@@ -1,0 +1,37 @@
+name: publish-youtube
+on:
+  repository_dispatch:
+    types: [publish-youtube]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Download videos artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: videos-${{ github.event.client_payload.run_id }}
+          run-id: ${{ github.event.client_payload.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: artifact
+      - name: Publish
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python automation/publish.py --root artifact \
+            --story-id "${{ github.event.client_payload.story_id }}" \
+            --run-id "${{ github.event.client_payload.run_id }}" \
+            --reply-to "${{ github.event.client_payload.message_id }}" \
+            --privacy "${{ vars.YOUTUBE_PRIVACY || 'unlisted' }}"

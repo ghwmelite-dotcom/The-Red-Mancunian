@@ -1,0 +1,79 @@
+name: editor
+on:
+  repository_dispatch:
+    types: [editor-run]
+  schedule:
+    - cron: "0 8 * * *"   # 09:00 UK in summer (08:00 in winter - acceptable drift)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Render but skip Telegram delivery"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: editor
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+          pip install -r requirements.txt
+          npm install -g @anthropic-ai/claude-code
+      - name: Snapshot existing output
+        id: snapshot
+        run: |
+          DAY=$(TZ=Europe/London date +%F)
+          echo "day=$DAY" >> "$GITHUB_OUTPUT"
+          ls "tiktok/output/$DAY/"*.mp4 > /tmp/before.txt 2>/dev/null || : > /tmp/before.txt
+      - name: Run editor
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          EDITOR_MODE: ${{ github.event_name == 'repository_dispatch' && 'breaking' || 'baseline' }}
+          WATCHER_HEADLINES: ${{ github.event.client_payload.headlines }}
+        run: bash automation/run_editor.sh
+      - name: Commit story JSONs
+        run: |
+          git config user.name "red-mancunian-bot"
+          git config user.email "red-mancunian-bot@users.noreply.github.com"
+          git add tiktok/stories/*.json
+          git diff --cached --quiet || git commit -m "content: automated run ${{ steps.snapshot.outputs.day }} (${{ github.run_id }})"
+          git push
+      - name: Detect new videos
+        id: detect
+        run: python automation/detect_new.py /tmp/before.txt "tiktok/output/${{ steps.snapshot.outputs.day }}"
+      - name: Upload videos artifact
+        if: steps.detect.outputs.new_ids != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos-${{ github.run_id }}
+          path: tiktok/output/
+          retention-days: 7
+      - name: Deliver to Telegram
+        if: steps.detect.outputs.new_ids != '' && github.event.inputs.dry_run != 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python automation/delivery.py --run-id "${{ github.run_id }}" \
+            --day-dir "tiktok/output/${{ steps.snapshot.outputs.day }}" \
+            --ids "${{ steps.detect.outputs.new_ids }}"
+      - name: Alert on failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python automation/telegram_bot.py alert \
+            "Editor run failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
