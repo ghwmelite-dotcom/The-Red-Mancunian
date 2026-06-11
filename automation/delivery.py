@@ -11,6 +11,7 @@ second plain message so it can be copied with one tap. Buttons carry
 import argparse
 import json
 import os
+import sys
 from pathlib import Path
 
 import telegram_bot
@@ -25,6 +26,7 @@ def build_callback(action: str, run_id: str, story_id: str) -> str:
 
 
 def summary(story: dict) -> str:
+    """Inline caption for the sendVideo message (not the copyable caption file)."""
     return (f"{story['hook']['text']}\n"
             f"{story['category']} | {story['status']} | {story.get('source', 'club')}\n"
             f"TikTok: save this video, add a trending sound at ~20%, paste the "
@@ -57,6 +59,13 @@ if __name__ == "__main__":
     ap.add_argument("--day-dir", required=True)
     ap.add_argument("--ids", required=True, help="space-separated story ids")
     args = ap.parse_args()
+    failed = []
     for sid in args.ids.split():
-        deliver(Path(args.day_dir), sid, args.run_id)
-        print(f"delivered {sid}")
+        try:
+            deliver(Path(args.day_dir), sid, args.run_id)
+            print(f"delivered {sid}")
+        except Exception as exc:           # keep going - other stories must still arrive
+            print(f"ERROR delivering {sid}: {exc}", file=sys.stderr)
+            failed.append(sid)
+    if failed:
+        sys.exit(f"delivery failed for: {' '.join(failed)}")

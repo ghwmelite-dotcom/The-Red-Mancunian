@@ -39,6 +39,7 @@ def test_deliver_sends_video_then_caption(tmp_path, monkeypatch):
     delivery.deliver(day, "2026-06-11-hall", "777")
 
     assert sent[0][0] == "sendVideo"
+    assert "HOOK" in sent[0][1]["caption"]
     keyboard = json.loads(sent[0][1]["reply_markup"])
     assert keyboard["inline_keyboard"][0][0]["callback_data"] == "ok:777:2026-06-11-hall"
     assert sent[1] == ("sendMessage",
