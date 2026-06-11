@@ -59,27 +59,24 @@ Every story also renders a `-youtube` MP4 (end card: "SUBSCRIBE..." +
 4. Channel: The Red Mancunian (@theredmancunianway). Shorts and the FM26 long-form
    feeds are recommended separately by YouTube — news Shorts won't hurt episode reach.
 
-## Automation (scheduled runs)
-Two Windows scheduled tasks run `tiktok/run-daily.ps1` every day (or as soon as the
-machine wakes, if asleep at the time):
-- **RedMancunian-Daily-Update** at **09:30** — feeds the 12:00-14:00 TikTok window
-- **RedMancunian-Evening-Update** at **17:30** — catches afternoon/evening news
-  ahead of the 19:00-21:00 window (a second story on busy days; quiet exit otherwise)
-
-Each run executes `/mufc-update` headlessly — fetch news, pick the story, render BOTH
-platform videos — then raises a Windows toast:
-- "N video(s) ready to post" → open `tiktok/output/<date>/`, follow the post-notes
-- "no new videos today" → slow news day; the editor's reasoning is in the log
-- "run FAILED" → check `tiktok/output/automation-logs/<date>.log`
-
-Notes:
-- The machine must be on and you logged in for the run + toast to fire.
-- Each run uses Claude Code from your subscription like an interactive session.
-- Test the alert: `powershell -File tiktok\run-daily.ps1 -TestAlert`
-- Change the times: Task Scheduler → RedMancunian-Daily-Update / -Evening-Update.
-- Unattended runs never render evergreen — slow-day suggestions land in the log
-  for you to approve interactively.
-- Breaking news outside the scheduled times still needs a manual `/mufc-update` run.
+## Automation (cloud pipeline)
+The cloud pipeline (see `automation/SETUP.md` and
+`docs/superpowers/specs/2026-06-11-breaking-news-automation-design.md`) replaces
+the local scheduled tasks:
+- **Watcher** (GitHub Actions, every 30 min, 07:00–22:00 UK) fingerprints feed
+  headlines and wakes the editor for genuinely new stories — max 3 wakes/day.
+- **Editor** (GitHub Actions) runs `/mufc-update` headlessly: daily 09:00 UK
+  baseline + watcher-triggered breaking runs. Renders BOTH platform videos.
+- **Delivery**: each video lands in Telegram with the caption and
+  ✅ Post to YouTube / ❌ Reject buttons.
+- **YouTube**: approving uploads the `-youtube` MP4 automatically and replies
+  with the link. TikTok stays manual from the Telegram message — save the
+  video, add a trending sound at ~20%, paste the caption.
+- Slow days: the editor posts nothing and says why in the run log. Evergreen
+  is still interactive-only.
+- Breaking news you spot yourself: Actions → editor → Run workflow, or run
+  `/mufc-update` locally (still works).
+- Failures arrive as Telegram alerts with a link to the run log.
 
 ## Maintenance
 - Feeds live in `sources.json` — disable dead ones, add new ones with a tier.
