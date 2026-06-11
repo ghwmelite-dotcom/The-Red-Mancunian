@@ -44,6 +44,7 @@ jobs:
           WATCHER_HEADLINES: ${{ github.event.client_payload.headlines }}
         run: bash automation/run_editor.sh
       - name: Commit story JSONs
+        if: github.event.inputs.dry_run != 'true'
         run: |
           git config user.name "red-mancunian-bot"
           git config user.email "red-mancunian-bot@users.noreply.github.com"
@@ -58,7 +59,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: videos-${{ github.run_id }}
-          path: tiktok/output/
+          path: |
+            tiktok/output/
+            !tiktok/output/**/frames/**
           retention-days: 7
       - name: Deliver to Telegram
         if: steps.detect.outputs.new_ids != '' && github.event.inputs.dry_run != 'true'

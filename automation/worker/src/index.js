@@ -49,6 +49,15 @@ export default {
         callback_query_id: cb.id,
         text: r.status === 204 ? 'Queued for YouTube ✅' : `Dispatch failed (${r.status})`,
       });
+      if (r.status === 204) {
+        // editing without reply_markup strips the buttons, so a double-tap
+        // can't dispatch a duplicate upload (reject path relies on this too)
+        await tg(env, 'editMessageCaption', {
+          chat_id: cb.message.chat.id,
+          message_id: cb.message.message_id,
+          caption: `${cb.message.caption || ''}\n\n✅ QUEUED FOR YOUTUBE`,
+        });
+      }
     } else if (action === 'no') {
       await tg(env, 'answerCallbackQuery', { callback_query_id: cb.id, text: 'Rejected' });
       await tg(env, 'editMessageCaption', {

@@ -35,3 +35,11 @@ jobs:
             --run-id "${{ github.event.client_payload.run_id }}" \
             --reply-to "${{ github.event.client_payload.message_id }}" \
             --privacy "${{ vars.YOUTUBE_PRIVACY || 'unlisted' }}"
+      - name: Alert on failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python automation/telegram_bot.py alert \
+            "Publish failed for ${{ github.event.client_payload.story_id }} (artifact may have expired): ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
