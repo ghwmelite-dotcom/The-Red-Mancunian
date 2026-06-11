@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build the /mufc-update prompt for unattended cloud runs and invoke claude.
 # Env: EDITOR_MODE=baseline|breaking, WATCHER_HEADLINES (breaking only),
-#      ANTHROPIC_API_KEY.
+#      CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token` - subscription auth).
 set -euo pipefail
 
 PROMPT="/mufc-update UNATTENDED RUN: never wait for user input. On slow days do \

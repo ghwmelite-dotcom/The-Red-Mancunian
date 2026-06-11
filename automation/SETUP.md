@@ -17,11 +17,18 @@ GitHub → Settings → Developer settings → Fine-grained tokens → Generate:
 - 1-year expiry; calendar a renewal reminder.
 
 ## 3. Repo secrets + variable
-`gh secret set <NAME>` for each: ANTHROPIC_API_KEY, TELEGRAM_BOT_TOKEN,
+First mint the Claude subscription token (no API billing — editor runs use
+your existing Claude plan): run `claude setup-token` locally, follow the
+browser flow, copy the token.
+
+`gh secret set <NAME>` for each: CLAUDE_CODE_OAUTH_TOKEN, TELEGRAM_BOT_TOKEN,
 TELEGRAM_CHAT_ID, REPO_DISPATCH_PAT, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
 GOOGLE_REFRESH_TOKEN (from step 4).
 `gh variable set YOUTUBE_PRIVACY --body unlisted`  (flip to `public` after the
 shakedown week).
+
+Note: the token is long-lived but not eternal (~1 year). If editor runs start
+failing with auth errors, re-run `claude setup-token` and update the secret.
 
 ## 4. Google / YouTube OAuth
 1. console.cloud.google.com → new project "red-mancunian" → enable

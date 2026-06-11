@@ -39,7 +39,7 @@ jobs:
           ls "tiktok/output/$DAY/"*.mp4 > /tmp/before.txt 2>/dev/null || : > /tmp/before.txt
       - name: Run editor
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           EDITOR_MODE: ${{ github.event_name == 'repository_dispatch' && 'breaking' || 'baseline' }}
           WATCHER_HEADLINES: ${{ github.event.client_payload.headlines }}
         run: bash automation/run_editor.sh
