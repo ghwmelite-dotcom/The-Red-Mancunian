@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-12-wc-predictions-saturday",
+  "date": "2026-06-12",
+  "category": "MATCHDAY",
+  "status": "CONFIRMED",
+  "source": "The Red Mancunian",
+  "mood": "point",
+  "hook": { "text": "SATURDAY'S WORLD CUP: WE CALL IT", "highlight": "WE CALL IT" },
+  "beats": [
+    { "text": "UNITED DERBY: BRAZIL OR DRAW VS MAZRAOUI'S MOROCCO", "highlight": "BRAZIL OR DRAW" },
+    { "text": "SCOTLAND V HAITI STAYS TIGHT: UNDER 3.5 GOALS", "highlight": "UNDER 3.5 GOALS" },
+    { "text": "SWITZERLAND BEAT QATAR - BANKER OF THE DAY", "highlight": "BANKER" }
+  ],
+  "caption": "Saturday's calls: Casemiro's Brazil don't lose the United derby to Mazraoui's Morocco, Haiti keep Fletcher's Scotland tight, and the Swiss are the banker. Who you got? 🔴⚽",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#matchday", "#worldcup", "#fifaworldcup2026", "#predictions"]
+}

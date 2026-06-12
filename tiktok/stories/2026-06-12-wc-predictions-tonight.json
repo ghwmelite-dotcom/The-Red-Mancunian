@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-12-wc-predictions-tonight",
+  "date": "2026-06-12",
+  "category": "MATCHDAY",
+  "status": "CONFIRMED",
+  "source": "The Red Mancunian",
+  "mood": "point",
+  "hook": { "text": "TONIGHT'S WORLD CUP: OUR CALLS", "highlight": "OUR CALLS" },
+  "beats": [
+    { "text": "CANADA V BOSNIA: OVER 1.5 GOALS IS THE PLAY", "highlight": "OVER 1.5 GOALS" },
+    { "text": "USA OR DRAW - PARAGUAY MISS ENCISO", "highlight": "USA OR DRAW" },
+    { "text": "AGREE? DROP YOUR CALLS BELOW", "highlight": "YOUR CALLS" }
+  ],
+  "caption": "World Cup day 2 calls: goals in Toronto (Bosnia hit BTTS in 8 of 9), and the USA don't lose to an Enciso-less Paraguay. What are your calls? 🔴⚽",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#matchday", "#worldcup", "#fifaworldcup2026", "#predictions"]
+}
