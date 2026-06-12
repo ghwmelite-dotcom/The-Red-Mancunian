@@ -261,5 +261,67 @@
    "years"
   ],
   "sent_at": "2026-06-12T19:58:47.120170+01:00"
+ },
+ {
+  "id": "2026-06-12-fernandes-united-lead",
+  "tokens": [
+   "30",
+   "80m",
+   "arsenal",
+   "deal",
+   "deterred",
+   "expected",
+   "face",
+   "ham",
+   "high",
+   "june",
+   "lead",
+   "madrid",
+   "midfielder",
+   "no",
+   "out",
+   "personal",
+   "pressure",
+   "price",
+   "problem",
+   "psg",
+   "race",
+   "sell",
+   "terms",
+   "too",
+   "west"
+  ],
+  "sent_at": "2026-06-12T20:44:03.341274+01:00"
+ },
+ {
+  "id": "2026-06-12-united-debt-filing",
+  "tokens": [
+   "100m",
+   "125m",
+   "15",
+   "425m",
+   "before",
+   "bonds",
+   "days",
+   "debt",
+   "existing",
+   "fresh",
+   "ineos",
+   "june",
+   "long",
+   "more",
+   "need",
+   "opens",
+   "plan",
+   "refinancing",
+   "secured",
+   "splurge",
+   "still",
+   "take",
+   "term",
+   "three",
+   "window"
+  ],
+  "sent_at": "2026-06-12T20:44:06.898248+01:00"
  }
 ]
