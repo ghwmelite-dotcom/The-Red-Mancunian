@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-12-mctominay-world-cup",
+  "date": "2026-06-12",
+  "category": "CLUB",
+  "status": "REPORTED",
+  "source": "Sky Sports",
+  "mood": "react",
+  "hook": { "text": "MCTOMINAY FIT FOR SCOTLAND'S WORLD CUP OPENER", "highlight": "WORLD CUP OPENER" },
+  "beats": [
+    { "text": "THE FORMER RED MISSED TRAINING WITH ILLNESS", "highlight": "MISSED TRAINING" },
+    { "text": "SCOTLAND'S FIRST WORLD CUP IN 28 YEARS AWAITS", "highlight": "28 YEARS" },
+    { "text": "MAC IS FIT AND READY TO PLAY", "highlight": "FIT AND READY" }
+  ],
+  "caption": "McTominay missed training with illness but is back fit for Scotland's World Cup opener vs Haiti — their first WC in 28 years. Once a Red, always a Red. Come on Scotland! 🏴󠁧󠁢󠁳󠁣󠁴󠁿🔴 Per Sky Sports.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#mctominay", "#scotland", "#worldcup2026"]
+}
