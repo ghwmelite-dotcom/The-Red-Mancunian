@@ -24,6 +24,12 @@ video(s). Follow `tiktok/PLAYBOOK.md` for copy rules and `tiktok/sources.json` f
   kills credibility.
 - Dedupe across sources. For each distinct story note: best source + tier, category
   (TRANSFER / MATCHDAY / CLUB / ACADEMY), status per the PLAYBOOK status ladder.
+- Dedupe against ALREADY-RENDERED videos: read the `tiktok/stories/*.json` files from
+  the last 3 days (earlier runs today included). A story already covered is OFF the
+  table unless its status has moved up the ladder (e.g. talks → fee agreed →
+  confirmed) — and then the new video must lead with what's NEW, not restate the old
+  angle. Delivery hard-skips anything too similar to a sent video, so a rehash wastes
+  the whole render.
 - Newsworthiness score (1-10). 8+: post immediately regardless of cadence. Guide:
   confirmed signing 9-10, medical/fee agreed 8, big rumour 6-7, manager presser
   quote 5-6, injury news 5-7 by player importance, derby result 9, routine result 7.

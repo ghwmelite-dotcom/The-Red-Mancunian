@@ -23,20 +23,25 @@ def test_summary_lines(tmp_path):
     assert "TRANSFER" in text and "REPORTED" in text and "Sky Sports" in text
 
 
+def _stage_story(day, story_id, hook="HOOK GOES HERE NOW"):
+    (day / f"{story_id}.mp4").write_bytes(b"vid")
+    (day / f"{story_id}-caption.txt").write_text("caption text", encoding="utf-8")
+    (day / f"{story_id}.json").write_text(json.dumps(
+        {"hook": {"text": hook}, "category": "TRANSFER",
+         "status": "REPORTED", "source": "Sky Sports"}), encoding="utf-8")
+
+
 def test_deliver_sends_video_then_caption(tmp_path, monkeypatch):
     day = tmp_path
-    (day / "2026-06-11-hall.mp4").write_bytes(b"vid")
-    (day / "2026-06-11-hall-caption.txt").write_text("caption text", encoding="utf-8")
-    (day / "2026-06-11-hall.json").write_text(json.dumps(
-        {"hook": {"text": "HOOK"}, "category": "TRANSFER",
-         "status": "REPORTED", "source": "Sky Sports"}), encoding="utf-8")
+    _stage_story(day, "2026-06-11-hall", hook="HOOK")
+    monkeypatch.setattr(delivery.dedupe, "LEDGER_PATH", day / "delivered.json")
 
     sent = []
     monkeypatch.setenv("TELEGRAM_CHAT_ID", "42")
     monkeypatch.setattr(delivery.telegram_bot, "call",
                         lambda method, files=None, **p:
                         (sent.append((method, p)), {"message_id": 9})[1])
-    delivery.deliver(day, "2026-06-11-hall", "777")
+    assert delivery.deliver(day, "2026-06-11-hall", "777", []) is True
 
     assert sent[0][0] == "sendVideo"
     assert "HOOK" in sent[0][1]["caption"]
@@ -45,3 +50,38 @@ def test_deliver_sends_video_then_caption(tmp_path, monkeypatch):
     assert sent[1] == ("sendMessage",
                        {"chat_id": "42", "text": "caption text",
                         "reply_to_message_id": 9})
+
+
+def test_deliver_skips_story_already_in_ledger(tmp_path, monkeypatch):
+    day = tmp_path
+    _stage_story(day, "2026-06-11-hall")
+    monkeypatch.setattr(delivery.dedupe, "LEDGER_PATH", day / "delivered.json")
+    ledger = [{"id": "2026-06-11-hall", "tokens": ["anything"],
+               "sent_at": "2026-06-11T12:00:00+01:00"}]
+
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "42")
+    monkeypatch.setattr(delivery.telegram_bot, "call",
+                        lambda *a, **p: pytest.fail("must not call Telegram"))
+    assert delivery.deliver(day, "2026-06-11-hall", "777", ledger) is False
+    assert len(ledger) == 1                      # nothing new recorded
+
+
+def test_deliver_records_before_caption_message(tmp_path, monkeypatch):
+    """If the caption sendMessage fails, the video must already be in the
+    ledger so a retry does not re-send it."""
+    day = tmp_path
+    _stage_story(day, "2026-06-11-hall")
+    monkeypatch.setattr(delivery.dedupe, "LEDGER_PATH", day / "delivered.json")
+    ledger = []
+
+    def call(method, files=None, **p):
+        if method == "sendMessage":
+            raise RuntimeError("telegram down")
+        return {"message_id": 9}
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "42")
+    monkeypatch.setattr(delivery.telegram_bot, "call", call)
+
+    with pytest.raises(RuntimeError):
+        delivery.deliver(day, "2026-06-11-hall", "777", ledger)
+    assert [e["id"] for e in ledger] == ["2026-06-11-hall"]
+    assert (day / "delivered.json").exists()     # persisted, not just in memory

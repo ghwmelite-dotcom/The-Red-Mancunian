@@ -74,6 +74,17 @@ jobs:
           python automation/delivery.py --run-id "${{ github.run_id }}" \
             --day-dir "tiktok/output/${{ steps.snapshot.outputs.day }}" \
             --ids "${{ steps.detect.outputs.new_ids }}"
+      - name: Commit delivery ledger
+        # always(): a partially failed delivery must still be recorded, or a
+        # retry re-sends the videos that DID go out
+        if: always() && steps.detect.outputs.new_ids != '' && github.event.inputs.dry_run != 'true'
+        run: |
+          git config user.name "red-mancunian-bot"
+          git config user.email "red-mancunian-bot@users.noreply.github.com"
+          git add automation/delivered.json
+          git diff --cached --quiet || git commit -m "chore(automation): delivery ledger ${{ steps.snapshot.outputs.day }} (${{ github.run_id }})"
+          git pull --rebase origin master
+          git push
       - name: Alert on failure
         if: failure()
         env:
