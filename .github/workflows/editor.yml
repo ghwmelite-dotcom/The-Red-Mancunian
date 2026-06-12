@@ -3,7 +3,7 @@ on:
   repository_dispatch:
     types: [editor-run]
   schedule:
-    - cron: "0 8 * * *"   # 09:00 UK in summer (08:00 in winter - acceptable drift)
+    - cron: "13 8 * * *"   # ~09:13 UK in summer (off the congested :00 - GitHub skips those under load)
   workflow_dispatch:
     inputs:
       dry_run:

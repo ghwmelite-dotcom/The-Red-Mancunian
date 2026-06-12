@@ -1,7 +1,7 @@
 name: news-watcher
 on:
   schedule:
-    - cron: "*/30 6-21 * * *"   # UTC; watcher.py re-gates to 07:00-22:00 Europe/London
+    - cron: "7,37 6-21 * * *"   # UTC, off the congested :00/:30 (GitHub skips those under load); watcher.py re-gates to 07:00-22:00 Europe/London
   workflow_dispatch: {}
 permissions:
   contents: read
