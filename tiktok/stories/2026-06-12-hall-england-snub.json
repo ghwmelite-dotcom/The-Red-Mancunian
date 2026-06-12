@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-12-hall-england-snub",
+  "date": "2026-06-12",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Football365 / The Sun",
+  "mood": "tension",
+  "hook": { "text": "HALL WANTS UNITED AFTER ENGLAND SNUB", "highlight": "ENGLAND SNUB" },
+  "beats": [
+    { "text": "LEWIS HALL LEFT OUT OF ENGLAND'S WORLD CUP SQUAD", "highlight": "LEWIS HALL" },
+    { "text": "HALL IS KEEN ON A MOVE TO OLD TRAFFORD", "highlight": "OLD TRAFFORD" },
+    { "text": "NEWCASTLE WANT £60M FOR THEIR LEFT-BACK", "highlight": "£60M" },
+    { "text": "INEOS ACCELERATING — A BID EXPECTED SOON", "highlight": "BID EXPECTED" }
+  ],
+  "caption": "INEOS are accelerating their move for Lewis Hall — the Newcastle left-back is reportedly frustrated at missing England's World Cup squad and keen on joining United for Champions League football. Newcastle want £60m. Who else should we target at left-back? 🔴 Per Football365 / The Sun.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow"]
+}
