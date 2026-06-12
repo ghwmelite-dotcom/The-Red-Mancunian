@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-12-fernandes-united-lead",
+  "date": "2026-06-12",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Ducker (Telegraph) / Wheeler (Daily Mail)",
+  "mood": "tension",
+  "hook": { "text": "ARSENAL OUT — UNITED LEAD THE RACE", "highlight": "ARSENAL OUT" },
+  "beats": [
+    { "text": "WEST HAM FACE PRESSURE TO SELL BY JUNE 30", "highlight": "JUNE 30" },
+    { "text": "ARSENAL DETERRED — £80M PRICE TOO HIGH", "highlight": "ARSENAL DETERRED" },
+    { "text": "UNITED LEAD MADRID AND PSG FOR THE MIDFIELDER", "highlight": "UNITED LEAD" },
+    { "text": "PERSONAL TERMS NO PROBLEM — DEAL EXPECTED", "highlight": "NO PROBLEM" }
+  ],
+  "caption": "Ducker (Telegraph) and Wheeler (Daily Mail) both say United lead the race for Mateus Fernandes — Arsenal have been priced out by West Ham's £80m tag. PSG and Madrid lurk but United are in front. Can we seal it before the window even opens? 🔴 Per Telegraph / Daily Mail.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow"]
+}

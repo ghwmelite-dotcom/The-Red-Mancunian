@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-12-united-debt-filing",
+  "date": "2026-06-12",
+  "category": "CLUB",
+  "status": "REPORTED",
+  "source": "The Athletic",
+  "mood": "react",
+  "hook": { "text": "UNITED TAKE ON MORE DEBT BEFORE WINDOW", "highlight": "MORE DEBT" },
+  "beats": [
+    { "text": "$125M IN FRESH LONG-TERM DEBT SECURED", "highlight": "$125M" },
+    { "text": "EXISTING $425M IN BONDS NEED REFINANCING", "highlight": "$425M" },
+    { "text": "WINDOW OPENS IN THREE DAYS ON JUNE 15", "highlight": "THREE DAYS" },
+    { "text": "INEOS STILL PLAN £100M TRANSFER SPLURGE", "highlight": "£100M" }
+  ],
+  "caption": "New US filings reveal United have taken out a further $125m in long-term debt — on top of $425m in bonds already needing refinancing. Transfer window opens June 15. Would you still splurge on signings? 🔴 Per The Athletic.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#manchesterunited"]
+}
