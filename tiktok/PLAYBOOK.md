@@ -30,9 +30,12 @@ One story per video. Hook → 2–4 beats → follow card. 15–25 seconds.
 - ACADEMY: `#mufcacademy #wonderkid`
 
 ## Cadence
-- Baseline: 1 post/day.
-- Surge (2–3/day): matchdays, transfer deadline period, genuine breaking news.
-- Slow day: ACADEMY/nostalgia evergreen, or post nothing. Never force a non-story.
+- Baseline: 2 posts/day (lunch + evening windows) — the engagement goal is a
+  daily heartbeat on every platform, every category, not just transfers.
+- Surge (3/day): matchdays, transfer deadline period, genuine breaking news.
+- Slow day: render an ACADEMY/nostalgia/World-Cup-watch evergreen — the
+  Telegram approval gate is where weak videos die, not the render step.
+  Never present a non-story as news (status rules still apply).
 
 ## Posting workflow (per video)
 Every render writes a `<id>-post-notes.txt` next to the video with the exact plan
@@ -65,17 +68,20 @@ The cloud pipeline (see `automation/SETUP.md` and
 the local scheduled tasks:
 - **Watcher** (GitHub Actions, every 30 min, 07:00–22:00 UK) fingerprints feed
   headlines and wakes the editor for genuinely new stories — max 3 wakes/day.
-- **Editor** (GitHub Actions) runs `/mufc-update` headlessly: daily 09:00 UK
-  baseline + watcher-triggered breaking runs. Renders BOTH platform videos.
+- **Editor** (GitHub Actions) runs `/mufc-update` headlessly: baselines at
+  ~09:13 and ~17:13 UK (lunch + evening windows) + watcher-triggered breaking
+  runs. Renders BOTH platform videos.
 - **Delivery**: each video lands in Telegram with the caption and
   ✅ Post to YouTube / ❌ Reject buttons.
 - **YouTube**: approving uploads the `-youtube` MP4 automatically and replies
   with the link. TikTok stays manual from the Telegram message — save the
   video, add a trending sound at ~20%, paste the caption.
-- Slow days: the editor posts nothing and says why in the run log. Evergreen
-  is still interactive-only.
-- Breaking news you spot yourself: Actions → editor → Run workflow, or run
-  `/mufc-update` locally (still works).
+- Slow days: the editor renders ONE evergreen instead of going silent — you
+  reject it in Telegram if it's weak. A missed day hurts reach more than a
+  modest video.
+- Breaking news you spot yourself: send `/run` to @RedMancunianDeskBot (or
+  Actions → editor → Run workflow, or `/mufc-update` locally). `/status` in
+  the same chat shows recent pipeline runs.
 - Failures arrive as Telegram alerts with a link to the run log.
 
 ## Maintenance

@@ -3,7 +3,8 @@ on:
   repository_dispatch:
     types: [editor-run]
   schedule:
-    - cron: "13 8 * * *"   # ~09:13 UK in summer (off the congested :00 - GitHub skips those under load)
+    - cron: "13 8 * * *"    # ~09:13 UK in summer - feeds the 12:00-14:00 TikTok window
+    - cron: "13 16 * * *"   # ~17:13 UK in summer - feeds the 19:00-21:00 evening window
   workflow_dispatch:
     inputs:
       dry_run:
