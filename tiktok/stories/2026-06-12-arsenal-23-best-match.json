@@ -1,0 +1,15 @@
+{
+  "id": "2026-06-12-arsenal-23-best-match",
+  "date": "2026-06-12",
+  "category": "CLUB",
+  "status": "CONFIRMED",
+  "mood": "celebrate",
+  "hook": { "text": "OUR ARSENAL WIN IS MATCH OF THE SEASON", "highlight": "MATCH OF THE SEASON" },
+  "beats": [
+    { "text": "ARSENAL 2-3 UNITED WINS THE PL FAN VOTE", "highlight": "ARSENAL 2-3 UNITED" },
+    { "text": "THAT COMEBACK IN NORTH LONDON BEATS EVERY GAME", "highlight": "COMEBACK IN NORTH LONDON" },
+    { "text": "THE PREMIER LEAGUE FANS MADE THE RIGHT CALL", "highlight": "MADE THE RIGHT CALL" }
+  ],
+  "caption": "Arsenal 2-3 Manchester United has been officially voted the best Premier League match of the 2025/26 season! That comeback in North London will live forever in the memory. What was your favourite moment from that night? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#matchday"]
+}
