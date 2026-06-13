@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-13-stadium-election-threat",
+  "date": "2026-06-13",
+  "category": "CLUB",
+  "status": "REPORTED",
+  "source": "The Times / Football Ground Guide",
+  "mood": "react",
+  "hook": { "text": "UNITED NEW STADIUM UNDER POLITICAL THREAT", "highlight": "POLITICAL THREAT" },
+  "beats": [
+    { "text": "UNITED PLAN A NEW GROUND WITH 100,000 SEATS", "highlight": "100,000 SEATS" },
+    { "text": "THE PROJECT NEEDS MAYOR ANDY BURNHAM'S BACKING", "highlight": "ANDY BURNHAM'S BACKING" },
+    { "text": "BURNHAM COULD WIN AND QUIT AS MAYOR", "highlight": "QUIT AS MAYOR" },
+    { "text": "A NEW MAYOR COULD BLOCK THE WHOLE PROJECT", "highlight": "BLOCK THE WHOLE PROJECT" }
+  ],
+  "caption": "United's 100,000-seat new Old Trafford could be in danger. The Times reports a Makerfield by-election on June 18 could force Greater Manchester Mayor Andy Burnham to quit his role — and a new mayor could withdraw funding approvals and block land deals essential to the project. 🔴 Do you trust politicians to back United's stadium dream? REPORTED — per The Times / Football Ground Guide.",
+  "hashtags": ["#mufc", "#manutd", "#football", "#manchesterunited", "#oldtrafford", "#newstadium"]
+}
