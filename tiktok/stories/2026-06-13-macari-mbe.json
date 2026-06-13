@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-13-macari-mbe",
+  "date": "2026-06-13",
+  "category": "CLUB",
+  "status": "CONFIRMED",
+  "source": "King's Birthday Honours",
+  "mood": "celebrate",
+  "hook": { "text": "FA CUP HERO MACARI FINALLY GETS HIS MBE", "highlight": "FA CUP HERO" },
+  "beats": [
+    { "text": "MACARI PLAYED FOR UNITED BETWEEN 1973 AND 1984", "highlight": "1973 AND 1984" },
+    { "text": "HIS DEFLECTED GOAL WON THE 1977 FA CUP", "highlight": "1977 FA CUP" },
+    { "text": "THE MACARI FOUNDATION HELPS HUNDREDS OF HOMELESS PEOPLE", "highlight": "MACARI FOUNDATION" },
+    { "text": "KING CHARLES AWARDS THE LEGEND AN MBE AT 77", "highlight": "AT 77" }
+  ],
+  "caption": "Lou Macari, 77, has been awarded an MBE in King Charles's Birthday Honours — for services to football and his foundation's work fighting homelessness. 🔴 The Scottish legend scored the deflected winner in the 1977 FA Cup final against Liverpool. Long overdue. Which United legend deserves a royal honour next?",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#manchesterunited", "#loumacari"]
+}

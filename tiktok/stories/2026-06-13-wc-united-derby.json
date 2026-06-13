@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-13-wc-united-derby",
+  "date": "2026-06-13",
+  "category": "MATCHDAY",
+  "status": "CONFIRMED",
+  "mood": "roar",
+  "hook": { "text": "UNITED DERBY NIGHT AT THE WORLD CUP", "highlight": "UNITED DERBY NIGHT" },
+  "beats": [
+    { "text": "CUNHA AND CASEMIRO'S BRAZIL FACE MAZRAOUI'S MOROCCO", "highlight": "MAZRAOUI'S MOROCCO" },
+    { "text": "THREE UNITED PLAYERS IN THE SAME WC GROUP", "highlight": "SAME WC GROUP" },
+    { "text": "BRAZIL VS MOROCCO KICKS OFF AT 11PM BST", "highlight": "11PM BST" },
+    { "text": "MCTOMINAY'S SCOTLAND FACE HAITI AT 2AM TOO", "highlight": "2AM" }
+  ],
+  "caption": "United Derby Night at the World Cup! 🔴⚽ Cunha and Casemiro's Brazil face Mazraoui's Morocco in Group C tonight (11pm BST, MetLife Stadium). Then McTominay's Scotland vs Haiti at 2am. Three United connections in the same WC group. Who are you backing? 🔴",
+  "hashtags": ["#mufc", "#manutd", "#football", "#matchday", "#worldcup2026", "#fifaworldcup2026", "#brazil", "#morocco"]
+}

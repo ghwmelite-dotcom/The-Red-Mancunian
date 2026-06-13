@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-13-branthwaite-monitoring",
+  "date": "2026-06-13",
+  "category": "TRANSFER",
+  "status": "RUMOUR",
+  "source": "Daily Mail",
+  "mood": "tension",
+  "hook": { "text": "BRANTHWAITE WANTED BY UNITED CITY AND BAYERN", "highlight": "UNITED CITY AND BAYERN" },
+  "beats": [
+    { "text": "EVERTON WOULD DEMAND MORE THAN £70M FOR HIM", "highlight": "£70M" },
+    { "text": "UNITED BID TWICE IN 2024 BUT EVERTON SAID NO", "highlight": "TWICE IN 2024" },
+    { "text": "CITY UNITED AND BAYERN ALL NOW IN THE RACE", "highlight": "ALL NOW IN THE RACE" },
+    { "text": "WINDOW OPENS JUNE 15 — WILL INEOS BID AGAIN", "highlight": "WILL INEOS BID AGAIN" }
+  ],
+  "caption": "Branthwaite is back on United's radar — the Daily Mail reports Man City, United and Bayern Munich are all monitoring the 25-year-old Everton CB. Everton want £70m+. United had personal terms agreed and submitted two bids in 2024, both rejected. Third time lucky? 🔴 RUMOUR — per Daily Mail (via Sky Sports paper talk).",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow"]
+}
