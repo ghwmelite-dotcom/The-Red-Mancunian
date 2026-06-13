@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-13-amorim-milan",
+  "date": "2026-06-13",
+  "category": "CLUB",
+  "status": "REPORTED",
+  "source": "The Athletic",
+  "mood": "react",
+  "hook": { "text": "AMORIM WANTED AS NEXT AC MILAN BOSS", "highlight": "AC MILAN BOSS" },
+  "beats": [
+    { "text": "UNITED SACKED AMORIM ON JANUARY 5 AFTER POOR FORM", "highlight": "JANUARY 5" },
+    { "text": "THE 41-YEAR-OLD HAS BEEN OUT OF FOOTBALL SINCE", "highlight": "OUT OF FOOTBALL" },
+    { "text": "HE HELD TALKS WITH MILAN IN PORTUGAL LAST WEEK", "highlight": "TALKS WITH MILAN" },
+    { "text": "THE ATHLETIC NAMES HIM AS MILAN'S LEADING CANDIDATE", "highlight": "LEADING CANDIDATE" }
+  ],
+  "caption": "Five months after Manchester United sacked him, Ruben Amorim is the leading candidate to take charge of AC Milan. The Athletic reports the 41-year-old held talks with the Italian giants in Portugal last week. A fresh chapter — but what do you think of Amorim as Milan boss? 🔴 REPORTED — per The Athletic.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#amorim", "#acmilan", "#manchesterunited"]
+}
