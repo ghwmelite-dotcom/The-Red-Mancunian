@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-13-fernandes-bid",
+  "date": "2026-06-13",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Sky Sports / Fabrizio Romano",
+  "mood": "tension",
+  "hook": { "text": "UNITED READY TO BID FOR MATEUS FERNANDES", "highlight": "READY TO BID" },
+  "beats": [
+    { "text": "INEOS PREPARING A £75M BID THIS WEEK", "highlight": "£75M BID" },
+    { "text": "WEST HAM WANT £80M AND WON'T BE RUSHED", "highlight": "£80M" },
+    { "text": "ROMANO CONFIRMS INEOS IN OFFICIAL CONTACT WITH AGENT", "highlight": "OFFICIAL CONTACT" },
+    { "text": "FERNANDES IS NOW UNITED'S NUMBER ONE PRIORITY TARGET", "highlight": "NUMBER ONE PRIORITY" }
+  ],
+  "caption": "Man United are preparing an opening bid of around £75m for West Ham's Mateus Fernandes — Fabrizio Romano says INEOS are in official contact with the 21-year-old's agent Jorge Mendes. West Ham want £80m and may reject the first offer, but Fernandes's camp is confident the deal gets done. The window opens June 15. Is this the midfield upgrade United need? 🔴 REPORTED — per Sky Sports / Fabrizio Romano.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow", "#fernandes"]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-13-beckham-walk-of-fame",
+  "date": "2026-06-13",
+  "category": "CLUB",
+  "status": "CONFIRMED",
+  "mood": "celebrate",
+  "hook": { "text": "UNITED LEGEND BECKHAM GETS WALK OF FAME STAR", "highlight": "WALK OF FAME STAR" },
+  "beats": [
+    { "text": "BECKHAM WON SIX LEAGUE TITLES IN UNITED RED", "highlight": "SIX LEAGUE TITLES" },
+    { "text": "THE TREBLE HERO HONOURED IN LOS ANGELES", "highlight": "TREBLE HERO" },
+    { "text": "TOM CRUISE AND VICTORIA SPOKE AT THE CEREMONY", "highlight": "TOM CRUISE" },
+    { "text": "HIS STAR IS NUMBER 2849 ON THE BOULEVARD", "highlight": "NUMBER 2849" }
+  ],
+  "caption": "United legend Sir David Beckham received the 2,849th star on the Hollywood Walk of Fame — honoured for taking football global and bringing 'soccer' to America. Victoria and Tom Cruise were among the speakers. Six Premier League titles. The 1999 Treble. Becks belongs in Hollywood. 🔴 What's your favourite Beckham moment in a United shirt?",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#beckham", "#davidbeckham", "#manchesterunited"]
+}
