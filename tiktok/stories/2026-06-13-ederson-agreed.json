@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-13-ederson-agreed",
+  "date": "2026-06-13",
+  "category": "TRANSFER",
+  "status": "CONFIRMED",
+  "source": "ESPN / Fabrizio Romano",
+  "mood": "celebrate",
+  "hook": { "text": "UNITED DONE DEAL WITH ATALANTA FOR EDERSON", "highlight": "DONE DEAL" },
+  "beats": [
+    { "text": "CARRICK LANDS HIS FIRST SIGNING OF THE SUMMER", "highlight": "FIRST SIGNING" },
+    { "text": "EDERSON ARRIVES FROM ATALANTA FOR AROUND £35M", "highlight": "£35M" },
+    { "text": "THE MIDFIELDER AGREES A FOUR-YEAR CONTRACT", "highlight": "FOUR-YEAR CONTRACT" },
+    { "text": "FERNANDES IS NOW THE NEXT MIDFIELD TARGET", "highlight": "NEXT MIDFIELD TARGET" }
+  ],
+  "caption": "United have agreed their first summer signing — Éderson Silva arrives from Atalanta for around £35m on a four-year contract. ESPN and Fabrizio Romano confirmed the deal; formal club announcement expected in early July. With Casemiro departing, Carrick has moved fast. Fernandes from West Ham is next. 🔴 Are we finally building a proper midfield?",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow", "#ederson"]
+}
