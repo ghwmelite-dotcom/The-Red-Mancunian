@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-13-rashford-barca-quit-bayern",
+  "date": "2026-06-13",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Football365 / Sky Sports",
+  "mood": "react",
+  "hook": { "text": "BARCA QUIT AND BAYERN WANT RASHFORD NOW", "highlight": "BARCA QUIT" },
+  "beats": [
+    { "text": "BARCELONA DECLINED THE PERMANENT £26M BUY OPTION", "highlight": "£26M BUY OPTION" },
+    { "text": "BAYERN MUNICH ARE WILLING TO PAY £34.5M", "highlight": "£34.5M" },
+    { "text": "UNITED WON'T LET RASHFORD GO ON LOAN AGAIN", "highlight": "ON LOAN AGAIN" },
+    { "text": "FATE DECIDED AS THE WINDOW OPENS JUNE 15", "highlight": "JUNE 15" }
+  ],
+  "caption": "Huge twist in the Rashford saga — Barcelona have declined to trigger the £26m permanent option, with Anthony Gordon's arrival changing Flick's plans. Now Bayern Munich are willing to pay United £34.5m. United won't accept another loan. Window opens June 15. What next for Rashford? 🔴 REPORTED — per Football365 / Sky Sports.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow", "#rashford", "#bayernmunich"]
+}
