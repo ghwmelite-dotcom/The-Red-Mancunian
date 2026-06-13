@@ -416,5 +416,66 @@
    "world"
   ],
   "sent_at": "2026-06-13T09:44:38.469288+01:00"
+ },
+ {
+  "id": "2026-06-13-beckham-walk-of-fame",
+  "tokens": [
+   "2849",
+   "angeles",
+   "beckham",
+   "boulevard",
+   "ceremony",
+   "cruise",
+   "fame",
+   "gets",
+   "hero",
+   "honoured",
+   "league",
+   "legend",
+   "los",
+   "number",
+   "red",
+   "six",
+   "spoke",
+   "star",
+   "titles",
+   "tom",
+   "treble",
+   "victoria",
+   "walk",
+   "won"
+  ],
+  "sent_at": "2026-06-13T10:39:09.843640+01:00"
+ },
+ {
+  "id": "2026-06-13-fernandes-bid",
+  "tokens": [
+   "75m",
+   "80m",
+   "agent",
+   "bid",
+   "confirms",
+   "contact",
+   "fernandes",
+   "ham",
+   "ineos",
+   "mateus",
+   "now",
+   "number",
+   "official",
+   "one",
+   "preparing",
+   "priority",
+   "ready",
+   "romano",
+   "rushed",
+   "target",
+   "united's",
+   "want",
+   "week",
+   "west",
+   "won't"
+  ],
+  "sent_at": "2026-06-13T10:39:12.084088+01:00"
  }
 ]
