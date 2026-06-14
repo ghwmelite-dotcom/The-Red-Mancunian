@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-14-fernandes-85m",
+  "date": "2026-06-14",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Fabrizio Romano",
+  "mood": "tension",
+  "hook": { "text": "WEST HAM WANT £85M FOR FERNANDES", "highlight": "£85M" },
+  "beats": [
+    { "text": "UNITED ARE PREPARING A FORMAL BID", "highlight": "FORMAL BID" },
+    { "text": "WE LEAD REAL MADRID AND ARSENAL", "highlight": "REAL MADRID" },
+    { "text": "CARRICK WANTS THE 21-YEAR-OLD BALL-WINNER", "highlight": "BALL-WINNER" }
+  ],
+  "caption": "West Ham have slapped an £85m price tag on Mateus Fernandes — but United are preparing a formal bid and lead Real Madrid and Arsenal for Carrick's midfield target. 🔴 Worth £85m? Tell us below. Per Fabrizio Romano / Sky Sports.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow"]
+}
