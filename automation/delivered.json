@@ -625,5 +625,66 @@
    "year"
   ],
   "sent_at": "2026-06-14T15:02:33.680059+01:00"
+ },
+ {
+  "id": "2026-06-14-amad-wc-ecuador",
+  "tokens": [
+   "2025",
+   "action",
+   "afcon",
+   "amad",
+   "beat",
+   "bst",
+   "coast",
+   "cup",
+   "diallo",
+   "ecuador",
+   "face",
+   "france",
+   "goals",
+   "ivory",
+   "late",
+   "midnight",
+   "starred",
+   "struck",
+   "three",
+   "tonight",
+   "up",
+   "warm",
+   "world"
+  ],
+  "sent_at": "2026-06-14T17:57:52.446127+01:00"
+ },
+ {
+  "id": "2026-06-14-rashford-returns",
+  "tokens": [
+   "26m",
+   "barcelona",
+   "bayern",
+   "carrick",
+   "carrington",
+   "declined",
+   "him",
+   "keeping",
+   "munich",
+   "not",
+   "now",
+   "opens",
+   "option",
+   "out",
+   "permanent",
+   "pursue",
+   "rashford",
+   "resigned",
+   "return",
+   "returning",
+   "ruled",
+   "set",
+   "their",
+   "tomorrow",
+   "unlikely",
+   "window"
+  ],
+  "sent_at": "2026-06-14T17:57:55.118253+01:00"
  }
 ]
