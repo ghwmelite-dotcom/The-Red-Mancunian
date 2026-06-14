@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-14-ederson-medical",
+  "date": "2026-06-14",
+  "category": "TRANSFER",
+  "status": "CONFIRMED",
+  "mood": "celebrate",
+  "hook": { "text": "EDERSON MEDICAL TODAY AS WINDOW OPENS TOMORROW", "highlight": "WINDOW OPENS TOMORROW" },
+  "beats": [
+    { "text": "UNITED AGREED THE £35M ATALANTA DEAL WEEKS AGO", "highlight": "£35M" },
+    { "text": "HIS MEDICAL WAS DELAYED BY A BRAZIL WORLD CUP CALL-UP", "highlight": "BRAZIL WORLD CUP" },
+    { "text": "OFFICIAL ANNOUNCEMENT DUE WHEN THE WINDOW OPENS JUNE 15", "highlight": "JUNE 15" },
+    { "text": "LEWIS HALL ALSO IN ACTIVE TALKS AS SECOND SIGNING NEARS", "highlight": "LEWIS HALL" }
+  ],
+  "caption": "It's happening — Ederson Silva is undergoing his Man United medical in New York TODAY, timed with the World Cup. The £35m Atalanta deal was agreed weeks ago but his late Brazil call-up delayed the formalities. Window opens tomorrow (June 15) and the official announcement is expected very soon. Lewis Hall is also in active talks as Carrick lines up signing number two. 🔴 How excited are you for this window? Let us know below.",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow", "#ederson"]
+}
