@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-15-amad-winner",
+  "date": "2026-06-15",
+  "category": "MATCHDAY",
+  "status": "CONFIRMED",
+  "source": "FIFA World Cup",
+  "mood": "roar",
+  "hook": { "text": "AMAD WINS IT FOR IVORY COAST", "highlight": "AMAD" },
+  "beats": [
+    { "text": "A 90TH-MINUTE WINNER TO BEAT ECUADOR", "highlight": "90TH-MINUTE" },
+    { "text": "IVORY COAST TAKE THEIR OPENER 1-0", "highlight": "1-0" },
+    { "text": "OUR MAN DECIDING IT ON THE BIGGEST STAGE", "highlight": "BIGGEST STAGE" }
+  ],
+  "caption": "AMAD DIALLO WINS IT! 🔴⚽ A 90th-minute strike to beat Ecuador 1-0 in Ivory Coast's World Cup opener — our man deciding it on the biggest stage. 🇨🇮 How good is Amad?? Tell us below 👇",
+  "hashtags": ["#mufc", "#manutd", "#amaddiallo", "#worldcup", "#ivorycoast", "#football"]
+}
