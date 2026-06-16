@@ -1017,5 +1017,84 @@
    "years"
   ],
   "sent_at": "2026-06-15T21:05:23.659693+01:00"
+ },
+ {
+  "id": "2026-06-16-fernandes-price-deadlock",
+  "tokens": [
+   "80m",
+   "below",
+   "bid",
+   "entertain",
+   "fee",
+   "fernandes",
+   "firm",
+   "ham",
+   "high",
+   "ineos",
+   "opening",
+   "pay",
+   "preparing",
+   "stand",
+   "such",
+   "their",
+   "unlikely",
+   "valuation",
+   "well",
+   "west",
+   "won't"
+  ],
+  "sent_at": "2026-06-16T12:41:24.746340+01:00"
+ },
+ {
+  "id": "2026-06-16-mainoo-rooney",
+  "tokens": [
+   "came",
+   "debut",
+   "eve",
+   "heartfelt",
+   "incredible",
+   "legend",
+   "mainoo",
+   "message",
+   "note",
+   "personal",
+   "ready",
+   "red",
+   "revealed",
+   "rooney's",
+   "sent",
+   "stage",
+   "wc",
+   "world",
+   "young"
+  ],
+  "sent_at": "2026-06-16T12:41:27.000359+01:00"
+ },
+ {
+  "id": "2026-06-16-summerville-target",
+  "tokens": [
+   "50m",
+   "any",
+   "comes",
+   "cup",
+   "deal",
+   "dutch",
+   "enquiry",
+   "future",
+   "goal",
+   "ham",
+   "hinges",
+   "make",
+   "move",
+   "netherlands",
+   "rashford's",
+   "shock",
+   "summerville",
+   "want",
+   "west",
+   "winger",
+   "world"
+  ],
+  "sent_at": "2026-06-16T12:41:29.470442+01:00"
  }
 ]
