@@ -1096,5 +1096,30 @@
    "world"
   ],
   "sent_at": "2026-06-16T12:41:29.470442+01:00"
+ },
+ {
+  "id": "2026-06-16-solskjaer-ipswich",
+  "tokens": [
+   "assistant",
+   "bbc",
+   "before",
+   "besiktas",
+   "candidate",
+   "eyes",
+   "gunnar",
+   "ipswich",
+   "leading",
+   "league",
+   "manager",
+   "mckenna",
+   "months",
+   "nine",
+   "ole",
+   "premier",
+   "return",
+   "sacked",
+   "was"
+  ],
+  "sent_at": "2026-06-16T18:24:10.376273+01:00"
  }
 ]
