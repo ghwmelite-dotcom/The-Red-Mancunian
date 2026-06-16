@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-16-solskjaer-ipswich",
+  "date": "2026-06-16",
+  "category": "CLUB",
+  "status": "REPORTED",
+  "source": "BBC Sport / Simon Stone",
+  "mood": "react",
+  "hook": { "text": "OLE GUNNAR EYES A PREMIER LEAGUE RETURN", "highlight": "PREMIER LEAGUE RETURN" },
+  "beats": [
+    { "text": "BBC REPORT OLE AS LEADING IPSWICH MANAGER CANDIDATE", "highlight": "LEADING IPSWICH MANAGER CANDIDATE" },
+    { "text": "OLE WAS SACKED BY BESIKTAS AFTER NINE MONTHS", "highlight": "NINE MONTHS" },
+    { "text": "MCKENNA WAS HIS UNITED ASSISTANT BEFORE LEADING IPSWICH", "highlight": "UNITED ASSISTANT" }
+  ],
+  "caption": "Ole's back in the picture 🔴 BBC Sport's Simon Stone reports Ole Gunnar Solskjaer is one of the leading candidates to become Ipswich Town's next manager — the Premier League club now searching for a successor to Kieran McKenna. OGS was sacked by Besiktas after nine months in Turkey. And the connection to Ipswich runs deep: McKenna was Ole's assistant at Old Trafford before building his own managerial career. Think Ole could make it work? 👇 REPORTED — per BBC Sport / Simon Stone. #mufc #manutd #premierleague #football #solskjaer #ipswich",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#solskjaer", "#ipswich"]
+}
