@@ -1251,5 +1251,58 @@
    "year"
   ],
   "sent_at": "2026-06-17T13:37:46.616930+01:00"
+ },
+ {
+  "id": "2026-06-17-greenwood-roma",
+  "tokens": [
+   "50",
+   "agreed",
+   "atletico",
+   "cash",
+   "deal",
+   "fee",
+   "greenwood",
+   "hold",
+   "madrid",
+   "marseille",
+   "millions",
+   "next",
+   "personal",
+   "pocket",
+   "rivalling",
+   "roma",
+   "sell",
+   "set",
+   "signature",
+   "terms"
+  ],
+  "sent_at": "2026-06-17T17:10:48.352979+01:00"
+ },
+ {
+  "id": "2026-06-17-rashford-release-clause",
+  "tokens": [
+   "40m",
+   "any",
+   "bans",
+   "both",
+   "but",
+   "can",
+   "city",
+   "clause",
+   "club",
+   "contract",
+   "do",
+   "excluded",
+   "him",
+   "liverpool",
+   "loan",
+   "other",
+   "rashford",
+   "rashford's",
+   "release",
+   "sign",
+   "won't"
+  ],
+  "sent_at": "2026-06-17T17:10:51.007063+01:00"
  }
 ]
