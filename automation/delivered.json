@@ -1147,5 +1147,85 @@
    "world"
   ],
   "sent_at": "2026-06-16T20:59:01.289261+01:00"
+ },
+ {
+  "id": "2026-06-17-fernandes-deal-on",
+  "tokens": [
+   "85m",
+   "but",
+   "camp",
+   "contact",
+   "deal",
+   "direct",
+   "fernandes",
+   "fernandes'",
+   "ham's",
+   "keen",
+   "match",
+   "move",
+   "now",
+   "player",
+   "romano",
+   "value",
+   "very",
+   "west",
+   "won't"
+  ],
+  "sent_at": "2026-06-17T12:28:19.426100+01:00"
+ },
+ {
+  "id": "2026-06-17-martinez-argentina",
+  "tokens": [
+   "2022",
+   "algeria",
+   "argentina",
+   "champions",
+   "clean",
+   "defending",
+   "hat",
+   "helps",
+   "kept",
+   "lisandro",
+   "martinez",
+   "messi",
+   "our",
+   "played",
+   "scored",
+   "sheet",
+   "smash",
+   "stunning",
+   "trick",
+   "win",
+   "world"
+  ],
+  "sent_at": "2026-06-17T12:28:21.553157+01:00"
+ },
+ {
+  "id": "2026-06-17-ronaldo-records",
+  "tokens": [
+   "also",
+   "appearances",
+   "closes",
+   "congo",
+   "cr7",
+   "cup",
+   "cups",
+   "dr",
+   "face",
+   "first",
+   "history",
+   "houston",
+   "hunts",
+   "messi's",
+   "portugal",
+   "record",
+   "score",
+   "six",
+   "tonight",
+   "tuanzebe's",
+   "wc",
+   "world"
+  ],
+  "sent_at": "2026-06-17T12:28:23.661035+01:00"
  }
 ]
