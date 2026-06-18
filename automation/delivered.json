@@ -1416,5 +1416,28 @@
    "targeting"
   ],
   "sent_at": "2026-06-18T13:09:17.973099+01:00"
+ },
+ {
+  "id": "2026-06-18-fixtures-drop-tomorrow",
+  "tokens": [
+   "10am",
+   "22",
+   "august",
+   "back",
+   "bst",
+   "campaign",
+   "champions",
+   "drops",
+   "fixtures",
+   "league",
+   "out",
+   "premier",
+   "schedule",
+   "season",
+   "starts",
+   "tomorrow",
+   "united's"
+  ],
+  "sent_at": "2026-06-18T15:30:50.212015+01:00"
  }
 ]
