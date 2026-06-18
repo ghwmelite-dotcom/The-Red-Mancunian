@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-18-rashford-england-croatia",
+  "date": "2026-06-18",
+  "category": "MATCHDAY",
+  "status": "CONFIRMED",
+  "mood": "roar",
+  "hook": { "text": "RASHFORD SCORES AS ENGLAND BEAT CROATIA 4-2", "highlight": "CROATIA 4-2" },
+  "beats": [
+    { "text": "ENGLAND WERE LEVEL 2-2 AT HALF-TIME", "highlight": "2-2 AT HALF-TIME" },
+    { "text": "BELLINGHAM FIRED ENGLAND AHEAD EARLY IN THE SECOND HALF", "highlight": "EARLY IN THE SECOND HALF" },
+    { "text": "RASHFORD SEALED IT IN THE 85TH MINUTE", "highlight": "85TH MINUTE" },
+    { "text": "JUST THREE DAYS AFTER HIS BARCELONA DEAL EXPIRED", "highlight": "BARCELONA DEAL EXPIRED" }
+  ],
+  "caption": "Marcus Rashford wrote the perfect response to all the uncertainty about his future 🔴 Just three days after Barcelona let his loan option expire, Rashford came off the bench to score England's fourth goal in a thrilling 4-2 World Cup win over Croatia. England were pegged back to 2-2 at half-time — but came storming out in the second half. Bellingham put them ahead, then Rashford killed the game off in the 85th minute. United fans won't have missed the timing. What does this World Cup form mean for Rashford's future? 👇 #mufc #manutd #premierleague #football #worldcup #england #rashford",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#worldcup", "#england", "#rashford"]
+}
