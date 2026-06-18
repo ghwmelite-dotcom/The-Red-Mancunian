@@ -1,0 +1,15 @@
+{
+  "id": "2026-06-18-fixtures-drop-tomorrow",
+  "date": "2026-06-18",
+  "category": "CLUB",
+  "status": "OFFICIAL",
+  "mood": "celebrate",
+  "hook": { "text": "UNITED'S NEW SEASON FIXTURES ARE OUT TOMORROW", "highlight": "TOMORROW" },
+  "beats": [
+    { "text": "THE PREMIER LEAGUE SCHEDULE DROPS AT 10AM BST", "highlight": "10AM BST" },
+    { "text": "UNITED ARE BACK IN THE CHAMPIONS LEAGUE", "highlight": "CHAMPIONS LEAGUE" },
+    { "text": "THE NEW CAMPAIGN STARTS ON AUGUST 22", "highlight": "AUGUST 22" }
+  ],
+  "caption": "The wait is nearly over 🔴 Manchester United's 2026/27 Premier League fixtures drop tomorrow morning at 10am BST — we'll finally find out who Carrick's side face first in what promises to be a massive new campaign. United are back in the Champions League, the season starts August 22 — a week later than usual to account for the World Cup. Who do you want as the opening day opponent? 👇 #mufc #manutd #premierleague #football",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football"]
+}
