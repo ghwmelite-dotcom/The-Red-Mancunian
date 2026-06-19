@@ -1,0 +1,16 @@
+{
+  "id": "2026-06-19-burnham-stadium-safe",
+  "date": "2026-06-19",
+  "category": "CLUB",
+  "status": "REPORTED",
+  "source": "BBC Sport",
+  "mood": "confident",
+  "hook": { "text": "UNITED'S £2BN STADIUM SAFE AS BURNHAM QUITS", "highlight": "STADIUM SAFE" },
+  "beats": [
+    { "text": "BURNHAM MUST STEP DOWN AS GREATER MANCHESTER MAYOR", "highlight": "STEP DOWN" },
+    { "text": "THE STADIUM IS LEGALLY PROTECTED — ONLY PARLIAMENT CAN STOP IT", "highlight": "LEGALLY PROTECTED" },
+    { "text": "UNITED ARE CONFIDENT THE £2BN BUILD WILL CONTINUE", "highlight": "£2BN" }
+  ],
+  "caption": "The 100,000-seat Old Trafford dream is SAFE 🔴 Andy Burnham has won the Makerfield by-election — and will now step down as Greater Manchester Mayor. The man who championed United's stadium is leaving City Hall, but the project isn't going anywhere. The Old Trafford development sits inside a Mayoral Development Corporation, legally constituted by Parliament — only the Government can scrap it. Lord Sebastian Coe chairs the project. Manchester United are confident whoever becomes the new mayor, the £2bn build continues. Were you worried? 👇 REPORTED — per BBC Sport. #mufc #manutd #premierleague #football #oldtrafford",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#oldtrafford"]
+}
