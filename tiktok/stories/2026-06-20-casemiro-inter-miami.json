@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-20-casemiro-inter-miami",
+  "date": "2026-06-20",
+  "category": "CLUB",
+  "status": "REPORTED",
+  "source": "Fabrizio Romano",
+  "mood": "react",
+  "hook": { "text": "CASEMIRO HEADING TO MESSI'S INTER MIAMI", "highlight": "INTER MIAMI" },
+  "beats": [
+    { "text": "ROMANO: VERBAL AGREEMENT SEALED WITH ALL PARTIES INVOLVED", "highlight": "VERBAL AGREEMENT SEALED" },
+    { "text": "THE 34-YEAR-OLD JOINS MESSI AND SUAREZ IN MIAMI", "highlight": "MESSI AND SUAREZ" },
+    { "text": "WON THE FA CUP AND LEAGUE CUP WITH UNITED", "highlight": "FA CUP AND LEAGUE CUP" },
+    { "text": "OFFICIAL ANNOUNCEMENT COMES AFTER WORLD CUP WITH BRAZIL", "highlight": "WORLD CUP WITH BRAZIL" }
+  ],
+  "caption": "It's happening — Casemiro is heading to Inter Miami 🔴 Fabrizio Romano reports a verbal agreement has been sealed with all parties, with all formal steps resolved. The 34-year-old leaves Manchester United as a free agent and links up with Lionel Messi and Luis Suárez in MLS. He won the FA Cup and League Cup at Old Trafford — a genuine servant to the cause. The official announcement is expected after his World Cup duty with Brazil. Will you miss Casemiro? 👇 REPORTED — per Fabrizio Romano. #mufc #manutd #premierleague #football #casemiro #intermiami",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#casemiro", "#intermiami"]
+}
