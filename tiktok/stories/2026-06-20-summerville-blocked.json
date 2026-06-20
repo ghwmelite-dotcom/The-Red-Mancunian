@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-20-summerville-blocked",
+  "date": "2026-06-20",
+  "category": "TRANSFER",
+  "status": "REPORTED",
+  "source": "Football365 / Fabrizio Romano",
+  "mood": "tension",
+  "hook": { "text": "WEST HAM BLOCK SUMMERVILLE SALE TO UNITED", "highlight": "BLOCK SUMMERVILLE SALE" },
+  "beats": [
+    { "text": "KRETINSKY WILL NOT LET SUMMERVILLE LEAVE THIS SUMMER", "highlight": "NOT LET SUMMERVILLE LEAVE" },
+    { "text": "UNITED HAD OPENED FORMAL TALKS AND OFFERED A FIVE-YEAR DEAL", "highlight": "FORMAL TALKS" },
+    { "text": "ONLY MATEUS FERNANDES HAS BEEN CLEARED TO LEAVE THE HAMMERS", "highlight": "CLEARED TO LEAVE" },
+    { "text": "UNITED MUST NOW LOOK ELSEWHERE FOR THEIR WINGER TARGET", "highlight": "LOOK ELSEWHERE" }
+  ],
+  "caption": "Bad news for United in the transfer window 🔴 Crysencio Summerville will NOT be moving to Old Trafford this summer. West Ham owner Daniel Kretinsky has put his foot down — only Mateus Fernandes has been cleared to leave the Hammers. United had opened formal talks and offered the Dutch winger a five-year deal, confirmed by both Romano and Ornstein. But Kretinsky wants Summerville and Bowen to stay as West Ham rebuild for life in the Championship. INEOS must now pivot and find a new winger. Who should United target instead? 👇 REPORTED — per Football365 / Fabrizio Romano. #mufc #manutd #premierleague #football #transfernews #transferwindow",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#transfernews", "#transferwindow"]
+}
