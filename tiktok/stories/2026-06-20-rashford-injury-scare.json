@@ -1,0 +1,17 @@
+{
+  "id": "2026-06-20-rashford-injury-scare",
+  "date": "2026-06-20",
+  "category": "MATCHDAY",
+  "status": "REPORTED",
+  "source": "Sky Sports",
+  "mood": "tension",
+  "hook": { "text": "RASHFORD INJURY SCARE BEFORE GHANA CLASH", "highlight": "INJURY SCARE" },
+  "beats": [
+    { "text": "RASHFORD HAS HAMSTRING TIGHTNESS AFTER CROATIA GOAL", "highlight": "HAMSTRING TIGHTNESS" },
+    { "text": "TUCHEL LISTS RASHFORD DOUBTFUL FOR GHANA CLASH", "highlight": "DOUBTFUL FOR GHANA" },
+    { "text": "SAKA AND RICE ALSO NURSING FITNESS ISSUES", "highlight": "SAKA AND RICE" },
+    { "text": "RASHFORD'S UNITED FUTURE MAY HINGE ON WORLD CUP FORM", "highlight": "UNITED FUTURE" }
+  ],
+  "caption": "Marcus Rashford's World Cup campaign is under a cloud after developing hamstring tightness against Croatia 🔴 He came off the bench to score England's fourth goal in a 4-2 win — but the effort may have cost him. Thomas Tuchel has listed him as doubtful for the crucial Group C clash with Ghana. Saka and Rice are also nursing injuries, leaving England with a real fitness headache. The stakes couldn't be higher: Rashford's summer at United hinges on proving his fitness and form on the biggest stage. Will Rashford be fit for Ghana? 👇 REPORTED — per Sky Sports. #mufc #manutd #premierleague #football #worldcup #england #rashford",
+  "hashtags": ["#mufc", "#manutd", "#premierleague", "#football", "#worldcup", "#england", "#rashford"]
+}
