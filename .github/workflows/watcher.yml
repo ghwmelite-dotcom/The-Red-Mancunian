@@ -1,7 +1,9 @@
 name: news-watcher
 on:
-  schedule:
-    - cron: "7 6-21 * * *"   # UTC, hourly (off the congested :00/:30 GitHub skips under load); watcher.py re-gates to 07:00-22:00 Europe/London. Halved from 7,37 to cut Actions run volume.
+  # Scheduled polling disabled 2026-06-21 to stop recurring GitHub Actions cost.
+  # Re-enable by uncommenting the cron below (watcher.py re-gates to 07:00-22:00 Europe/London).
+  # schedule:
+  #   - cron: "7,37 6-21 * * *"   # UTC, off the congested :00/:30 (GitHub skips those under load)
   workflow_dispatch: {}
 permissions:
   contents: read

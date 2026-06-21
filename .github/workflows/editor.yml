@@ -2,9 +2,11 @@ name: editor
 on:
   repository_dispatch:
     types: [editor-run]
-  schedule:
-    - cron: "13 8 * * *"    # ~09:13 UK in summer - feeds the 12:00-14:00 TikTok window
-    - cron: "13 16 * * *"   # ~17:13 UK in summer - feeds the 19:00-21:00 evening window
+  # Scheduled baseline renders disabled 2026-06-21 to stop recurring GitHub Actions cost.
+  # Re-enable by uncommenting the crons below.
+  # schedule:
+  #   - cron: "13 8 * * *"    # ~09:13 UK in summer - feeds the 12:00-14:00 TikTok window
+  #   - cron: "13 16 * * *"   # ~17:13 UK in summer - feeds the 19:00-21:00 evening window
   workflow_dispatch:
     inputs:
       dry_run:
