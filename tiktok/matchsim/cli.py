@@ -24,11 +24,17 @@ def _cmd_simulate(args):
         home_xg=args.home_xg, away_xg=args.away_xg,
         venue=args.venue, stage=args.stage, date=args.date,
     )
-    schema.validate(m)
+    try:
+        schema.validate(m)
+    except schema.SchemaError as e:
+        print(f"schema error: {e}", file=sys.stderr)
+        return 1
     public = {k: v for k, v in m.items() if not k.startswith("_")}
     text = json.dumps(public, indent=2, ensure_ascii=False)
     if args.out:
-        Path(args.out).write_text(text, encoding="utf-8")
+        out_path = Path(args.out)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(text, encoding="utf-8")
         print(f"wrote {args.out}")
     else:
         print(text)
