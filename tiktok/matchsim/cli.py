@@ -92,9 +92,17 @@ def _cmd_render(args):
     tl = timeline_mod.build_timeline(bundle, fps=fps, pre=args.pre,
                                      live=args.live, post=args.post)
     out_mp4 = Path(args.out)
+    sfx = []
+    live_a = tl["acts"]["live"][0]
+    post_a = tl["acts"]["post"][0]
+    sfx.append((live_a / fps, 0.7))
+    sfx.append((post_a / fps, 0.7))
+    for i, fr in enumerate(tl["frames"]):
+        if fr.get("goal"):
+            sfx.append((i / fps, 1.0))
     with tempfile.TemporaryDirectory() as td:
         render_match.render_frames(bundle, tl, td)
-        encode.encode(td, out_mp4, fps=fps)
+        encode.encode(td, out_mp4, fps=fps, sfx_events=sfx)
     fx = m["fixture"]
     caption = (f"{fx['home']['name']} {fx['final']} {fx['away']['name']} - "
                f"a {bundle['theme']['name']} simulation. Who wins the rematch? "
