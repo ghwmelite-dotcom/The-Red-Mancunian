@@ -102,23 +102,21 @@ def _live_frame(bundle, fr):
     hx, hy, hw, hh = z["header"]
     img.alpha_composite(draw.text_layer("THE RED MANCUNIAN",
                         draw.font("BebasNeue.ttf", 34), hex_to_rgb(theme["text"])), (hx, hy))
-    live = draw.text_layer("LIVE", draw.font("BebasNeue.ttf", 34), (255, 255, 255))
-    img.alpha_composite(live, (hx + hw - live.width, hy))
+    livelbl = draw.text_layer("LIVE", draw.font("BebasNeue.ttf", 34), (255, 80, 80))
+    img.alpha_composite(livelbl, (hx + hw - livelbl.width, hy))
 
     sx, sy, sw, sh = z["scoreboard"]
-    clock = fr["clock"]
-    tile = draw.font("Anton.ttf", 56)
-    ct = draw.text_layer(clock, tile, (10, 14, 42))
-    d.rounded_rectangle([sx, sy + 20, sx + ct.width + 40, sy + 20 + ct.height + 20],
+    home_x, score_x, away_x = z["score_anchors"]
+    ct = draw.text_layer(fr["clock"], draw.font("Anton.ttf", 52), (10, 14, 42))
+    d.rounded_rectangle([sx, sy + 24, sx + ct.width + 40, sy + 24 + ct.height + 18],
                         radius=12, fill=(255, 255, 255, 235))
-    img.alpha_composite(ct, (sx + 20, sy + 30))
-    score = f"{fr['score'][0]}  -  {fr['score'][1]}"
-    st = draw.text_layer(score, draw.font("Anton.ttf", 66), (255, 255, 255))
-    _center(img, st, W / 2 + 120, sy + 20)
+    img.alpha_composite(ct, (sx + 20, sy + 32))
     _center(img, draw.text_layer(fx["home"]["monogram"], draw.font("Anton.ttf", 40),
-            hex_to_rgb(fx["home"]["color"])), W / 2 - 40, sy + 35)
+            hex_to_rgb(fx["home"]["color"])), home_x, sy + 44)
+    _center(img, draw.text_layer(f"{fr['score'][0]}  -  {fr['score'][1]}",
+            draw.font("Anton.ttf", 66), (255, 255, 255)), score_x, sy + 28)
     _center(img, draw.text_layer(fx["away"]["monogram"], draw.font("Anton.ttf", 40),
-            hex_to_rgb(fx["away"]["color"])), W / 2 + 280, sy + 35)
+            hex_to_rgb(fx["away"]["color"])), away_x, sy + 44)
 
     px, py, pw, ph = z["progress"]
     d.rounded_rectangle([px, py, px + pw, py + ph], radius=ph // 2, fill=(255, 255, 255, 40))
@@ -131,9 +129,23 @@ def _live_frame(bundle, fr):
     img.alpha_composite(draw.text_layer("LIVE WIN PROBABILITY - DIXON-COLES",
                         draw.font("BebasNeue.ttf", 26), hex_to_rgb(theme["gold"])), (wx, wy))
     wp = fr["winprob"]
+    bar_y = wy + 40
     bar = draw.winprob_bar(ww, 46, wp["home"], wp["draw"], wp["away"],
                            fx["home"]["color"], "#5a5a5a", fx["away"]["color"])
-    img.alpha_composite(bar, (wx, wy + 40))
+    img.alpha_composite(bar, (wx, bar_y))
+    total = max(1e-6, wp["home"] + wp["draw"] + wp["away"])
+    hw_ = ww * wp["home"] / total
+    aw_ = ww * wp["away"] / total
+    _center(img, draw.text_layer(f"{round(wp['home'] * 100)}%",
+            draw.font("Anton.ttf", 26), (255, 255, 255)), wx + hw_ / 2, bar_y + 8)
+    _center(img, draw.text_layer(f"{round(wp['away'] * 100)}%",
+            draw.font("Anton.ttf", 26), (10, 14, 42)), wx + ww - aw_ / 2, bar_y + 8)
+    if fr.get("swing"):
+        sw_ = fr["swing"]
+        who = fx[sw_["team"]]["monogram"]
+        tag = draw.text_layer(f"UP {who} +{sw_['delta']}%",
+                              draw.font("Anton.ttf", 30), (70, 220, 120))
+        img.alpha_composite(tag, (wx + ww - tag.width, wy - 4))
 
     cx, cy, r = z["arena"]
     mi = fr["motion_index"]
@@ -147,8 +159,13 @@ def _live_frame(bundle, fr):
                                             fx["seed"], mi)
     if caption_text:
         cxr, cyr, cwr, chr_ = z["caption"]
-        pill = draw.text_layer(caption_text, draw.font("Anton.ttf", 54), (255, 255, 255))
+        pill_font = draw.font("Anton.ttf", 54)
+        tw = int(pill_font.getlength(caption_text))
+        pill = draw.glass_panel(tw + 60, 84, radius=18,
+                                fill=(10, 14, 42, 180), outline=(245, 196, 81, 200))
         _center(img, pill, W / 2, cyr)
+        _center(img, draw.text_layer(caption_text, pill_font, (255, 255, 255)),
+                W / 2, cyr + 10)
     return img
 
 
