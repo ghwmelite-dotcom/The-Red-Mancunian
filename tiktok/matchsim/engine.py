@@ -78,7 +78,7 @@ def _winprob_track(events, lam_h, lam_a):
                     ch += 1
                 else:
                     ca += 1
-        wp = win_prob(ch, ca, 90 - minute, lam_h, lam_a)
+        wp = win_prob(ch, ca, 90 - minute, lam_h, lam_a, rho=RHO, max_goals=MAX_GOALS)
         track.append({
             "minute": minute,
             "home": round(wp["home"], 3),
