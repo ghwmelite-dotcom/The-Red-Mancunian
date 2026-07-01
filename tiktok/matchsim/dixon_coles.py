@@ -35,7 +35,7 @@ def score_matrix(home_xg, away_xg, rho=-0.05, max_goals=10):
             p = (poisson_pmf(i, home_xg)
                  * poisson_pmf(j, away_xg)
                  * dc_tau(i, j, home_xg, away_xg, rho))
-            p = max(p, 0.0)
+            p = max(p, 0.0)  # tau can go slightly negative for extreme rho
             m[i][j] = p
             total += p
     for i in range(max_goals + 1):
@@ -44,10 +44,10 @@ def score_matrix(home_xg, away_xg, rho=-0.05, max_goals=10):
     return m
 
 
-def derive_markets(m, max_goals):
+def derive_markets(m):
     home = draw = away = 0.0
-    for i in range(max_goals + 1):
-        for j in range(max_goals + 1):
+    for i in range(len(m)):
+        for j in range(len(m)):
             p = m[i][j]
             if i > j:
                 home += p
