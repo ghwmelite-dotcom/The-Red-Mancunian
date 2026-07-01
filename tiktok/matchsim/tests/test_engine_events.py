@@ -1,4 +1,5 @@
 from engine import simulate
+from presets import resolve_team
 
 
 def _events(m):
@@ -35,11 +36,27 @@ def test_full_time_scoreafter_matches_final():
 
 def test_goals_have_scorer_from_pool():
     m = simulate("MUN", "RMA", seed=5, home_xg=3.0, away_xg=0.05)
-    from presets import resolve_team
     pool = set(resolve_team("MUN")["scorers"])
     home_goals = [e for e in _events(m) if e["type"] == "goal" and e["team"] == "home"]
-    assert home_goals
+    assert home_goals  # near-certain with xG 3.0
     assert all(g["scorer"] in pool for g in home_goals)
+
+
+def test_half_time_scoreafter_reflects_first_half_goals():
+    m = simulate("MUN", "RMA", seed=11)
+    ev = _events(m)
+    ht = next(e for e in ev if e["type"] == "half_time")
+    ft = next(e for e in ev if e["type"] == "full_time")
+    ht_h, ht_a = (int(x) for x in ht["scoreAfter"].split("-"))
+    ft_h, ft_a = (int(x) for x in ft["scoreAfter"].split("-"))
+    # half-time totals can't exceed full-time totals
+    assert ht_h <= ft_h and ht_a <= ft_a
+    # goals struck after minute 45 must account for the HT->FT difference
+    second_half = [e for e in ev if e["type"] == "goal" and e["minute"] > 45]
+    sh2 = sum(1 for g in second_half if g["team"] == "home")
+    sa2 = sum(1 for g in second_half if g["team"] == "away")
+    assert ht_h + sh2 == ft_h
+    assert ht_a + sa2 == ft_a
 
 
 def test_near_miss_events_present_with_flavour():
