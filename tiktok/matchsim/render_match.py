@@ -7,7 +7,6 @@ Act 3 full-time: FULL TIME, big score, winner highlight, analytics panel.
 
 Visual polish (goal replay/tracer/confetti, SFX, ticker scroll) is Plan 4.
 """
-import math
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter
@@ -15,7 +14,7 @@ from PIL import Image, ImageDraw, ImageFilter
 import draw
 import layout
 import captions
-from colors import hex_to_rgb, lerp_rgb
+from colors import hex_to_rgb
 
 W, H = layout.W, layout.H
 
@@ -47,7 +46,6 @@ def _acc(theme):
 def _pre_frame(bundle, fr):
     theme, fx = bundle["theme"], bundle["match"]["fixture"]
     img = _bg(theme).copy()
-    d = ImageDraw.Draw(img)
     _center(img, draw.text_layer(theme["name"].upper(), draw.font("BebasNeue.ttf", 46),
                                  hex_to_rgb(theme["muted"])), W / 2, 120)
     _center(img, draw.text_layer(f"KICK OFF IN  {fr['countdown']}",
@@ -125,7 +123,7 @@ def _live_frame(bundle, fr):
     px, py, pw, ph = z["progress"]
     d.rounded_rectangle([px, py, px + pw, py + ph], radius=ph // 2, fill=(255, 255, 255, 40))
     fillw = int(pw * fr["t"])
-    if fillw > ph:
+    if fillw >= ph:
         d.rounded_rectangle([px, py, px + fillw, py + ph], radius=ph // 2,
                             fill=(*_acc(theme), 255))
 
@@ -195,8 +193,10 @@ def render_frames(bundle, timeline, out_dir):
             img = _pre_frame(bundle, fr)
         elif fr["act"] == "live":
             img = _live_frame(bundle, fr)
-        else:
+        elif fr["act"] == "post":
             img = _post_frame(bundle, fr)
+        else:
+            raise ValueError(f"unknown act {fr['act']!r}")
         p = out_dir / f"f{i:05d}.png"
         img.convert("RGB").save(p)
         paths.append(str(p))
