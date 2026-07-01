@@ -3,9 +3,10 @@ make_video.py (Anton/Bebas fonts, gradients, glossy orbs, glass panels).
 All functions return RGBA Images; the renderer composites them.
 """
 import math
+import random
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 from colors import hex_to_rgb, lerp_rgb
 
@@ -131,4 +132,31 @@ def winprob_bar(w, h, p_home, p_draw, p_away, c_home, c_draw, c_away):
     ImageDraw.Draw(mask).rounded_rectangle([0, 0, w - 1, h - 1],
                                            radius=h // 2, fill=255)
     img.putalpha(mask)
+    return img
+
+
+def halo(size, color_hex, blur=20):
+    """A soft circular glow (for the possessing disc / accents)."""
+    base = hex_to_rgb(color_hex)
+    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    pad = max(2, size // 10)
+    d.ellipse([pad, pad, size - pad, size - pad], fill=(*base, 200))
+    return img.filter(ImageFilter.GaussianBlur(blur))
+
+
+def confetti(w, h, seed, n=80, colors=None):
+    """Deterministic scatter of small confetti rectangles (goal celebration)."""
+    if colors is None:
+        colors = [(255, 255, 255), (245, 196, 81), (218, 2, 14), (57, 230, 230)]
+    rng = random.Random(seed * 2654435761 + 1)
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    for _ in range(n):
+        x = rng.randint(0, w - 1)
+        y = rng.randint(0, h - 1)
+        sw = rng.randint(4, 10)
+        sh = rng.randint(6, 14)
+        col = colors[rng.randrange(len(colors))]
+        d.rectangle([x, y, x + sw, y + sh], fill=(*col, 235))
     return img
