@@ -86,13 +86,14 @@ def _arena(img, bundle, motion_frame, cx, cy, r, theme):
     da = (motion_frame["away"][0] - ball[0]) ** 2 + (motion_frame["away"][1] - ball[1]) ** 2
     poss = "home" if dh <= da else "away"
 
+    halo_size = int(disc_size * 1.7)
     for side in ("home", "away"):
         ox, oy = screen(motion_frame[side], disc_size)
         if side == poss:
-            hl = draw.halo(int(disc_size * 1.7), fx[side]["color"], blur=22)
-            _center(img, hl, ox, oy)
+            hl = draw.halo(halo_size, fx[side]["color"], blur=22)
+            _center(img, hl, ox, oy - halo_size / 2)
         disc = draw.orb(disc_size, fx[side]["color"], fx[side]["monogram"])
-        _center(img, disc, ox, oy)
+        _center(img, disc, ox, oy - disc_size / 2)
 
     bx = cx + ball[0] * r
     by = cy - ball[1] * r
