@@ -7,6 +7,7 @@ import random
 
 import presets
 from dixon_coles import score_matrix
+from winprob import win_prob
 
 RHO = -0.05
 MAX_GOALS = 8
@@ -65,6 +66,43 @@ def _disc(team):
     }
 
 
+def _winprob_track(events, lam_h, lam_a):
+    goal_minutes = [e["minute"] for e in events if e["type"] == "goal"]
+    checkpoints = sorted(set([0, 15, 30, 45, 60, 75, 90] + goal_minutes))
+    track = []
+    for minute in checkpoints:
+        ch = ca = 0
+        for e in events:
+            if e["type"] == "goal" and e["minute"] <= minute:
+                if e["team"] == "home":
+                    ch += 1
+                else:
+                    ca += 1
+        wp = win_prob(ch, ca, 90 - minute, lam_h, lam_a)
+        track.append({
+            "minute": minute,
+            "home": round(wp["home"], 3),
+            "draw": round(wp["draw"], 3),
+            "away": round(wp["away"], 3),
+        })
+    return track
+
+
+def _analytics(sh, sa, lam_h, lam_a, rng):
+    tot = max(lam_h + lam_a, 0.1)
+    poss_h = 50 + (lam_h - lam_a) / tot * 20 + rng.uniform(-4, 4)
+    poss_h = int(max(35, min(65, round(poss_h))))
+    shots_h = max(sh, int(round(lam_h * 6 + rng.uniform(-2, 2))))
+    shots_a = max(sa, int(round(lam_a * 6 + rng.uniform(-2, 2))))
+    xg_h = round(max(0.1, lam_h + rng.uniform(-0.2, 0.2)), 1)
+    xg_a = round(max(0.1, lam_a + rng.uniform(-0.2, 0.2)), 1)
+    return {
+        "possession": [poss_h, 100 - poss_h],
+        "shots": [shots_h, shots_a],
+        "xg": [xg_h, xg_a],
+    }
+
+
 def simulate(home, away, competition="generic", seed=0,
              home_xg=None, away_xg=None, venue="", stage=None, date=""):
     rng = random.Random(seed)
@@ -80,6 +118,8 @@ def simulate(home, away, competition="generic", seed=0,
     sh, sa = _sample_score(lam_h, lam_a, rng)
     final = f"{sh}-{sa}"
     events = _build_events(sh, sa, h, a, rng)
+    winprob = _winprob_track(events, lam_h, lam_a)
+    analytics = _analytics(sh, sa, lam_h, lam_a, rng)
 
     return {
         "fixture": {
@@ -89,6 +129,8 @@ def simulate(home, away, competition="generic", seed=0,
             "venue": venue, "date": date, "seed": seed, "final": final,
         },
         "events": events,
+        "winprob": winprob,
+        "analytics": analytics,
         "_final": final,
         "_lam": [lam_h, lam_a],
         "_score": [sh, sa],
