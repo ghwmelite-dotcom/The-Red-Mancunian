@@ -5,7 +5,7 @@ All functions return RGBA Images; the renderer composites them.
 import math
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 
 from colors import hex_to_rgb, lerp_rgb
 
@@ -27,7 +27,7 @@ def gradient_bg(stops, w, h):
     img = Image.new("RGBA", (w, h))
     px = img.load()
     for y in range(h):
-        t = y / (h - 1)
+        t = y / (h - 1) if h > 1 else 0.0
         if t < 0.5:
             col = lerp_rgb(top, mid, t / 0.5)
         else:
