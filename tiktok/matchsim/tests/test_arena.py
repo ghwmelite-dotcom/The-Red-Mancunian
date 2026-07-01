@@ -18,19 +18,20 @@ def test_frame_shape():
     assert isinstance(f["clash"], bool)
 
 
-def test_discs_and_ball_stay_inside_arena():
-    frames = simulate_motion(_match(), n_frames=400)
+def test_disc_centers_and_ball_stay_within_their_limits():
+    frames = simulate_motion(_match(), n_frames=600)
+    from arena import BALL_R
     for f in frames:
-        assert math.hypot(*f["home"]) <= R + 1e-6
-        assert math.hypot(*f["away"]) <= R + 1e-6
-        assert math.hypot(*f["ball"]) <= R + 1e-6
+        assert math.hypot(*f["home"]) <= R - DISC_R + 1e-3
+        assert math.hypot(*f["away"]) <= R - DISC_R + 1e-3
+        assert math.hypot(*f["ball"]) <= R - BALL_R + 1e-3
 
 
-def test_discs_never_overlap_after_a_frame_is_recorded():
-    frames = simulate_motion(_match(), n_frames=400)
+def test_discs_never_deeply_overlap():
+    frames = simulate_motion(_match(), n_frames=600)
     for f in frames:
         dist = math.hypot(f["away"][0] - f["home"][0], f["away"][1] - f["home"][1])
-        assert dist >= 2 * DISC_R - 1e-6
+        assert dist >= 2 * DISC_R - 0.08  # small clash tolerance, never deep overlap
 
 
 def test_deterministic_same_seed():

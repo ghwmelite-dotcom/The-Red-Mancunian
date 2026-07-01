@@ -16,15 +16,17 @@ SPEED = 0.030    # base per-frame speed
 
 
 def _reflect_inside(pos, vel, obj_r):
-    """Keep an object inside the circle; reflect its velocity off the wall."""
+    """Clamp an object inside the circle; reflect velocity only if it is
+    moving outward (prevents a spurious kick when a push has displaced it)."""
     d = math.hypot(pos[0], pos[1])
     limit = R - obj_r
     if d > limit and d > 0:
         nx, ny = pos[0] / d, pos[1] / d
         pos[0], pos[1] = nx * limit, ny * limit
         dot = vel[0] * nx + vel[1] * ny
-        vel[0] -= 2 * dot * nx
-        vel[1] -= 2 * dot * ny
+        if dot > 0:
+            vel[0] -= 2 * dot * nx
+            vel[1] -= 2 * dot * ny
 
 
 def _rand_pos(rng):
@@ -39,17 +41,21 @@ def _rand_vel(rng):
 
 
 def simulate_motion(match, n_frames, seed=None):
-    s = match["fixture"]["seed"] if seed is None else seed
+    s = int(match["fixture"]["seed"] if seed is None else seed)
     rng = random.Random(s * 7919 + 13)  # decorrelate from the engine's rng
 
     home = {"pos": _rand_pos(rng), "vel": _rand_vel(rng)}
     away = {"pos": _rand_pos(rng), "vel": _rand_vel(rng)}
     ball = {"pos": [0.0, 0.0], "vel": _rand_vel(rng)}
 
-    # Ensure discs don't start overlapping.
-    while math.hypot(away["pos"][0] - home["pos"][0],
-                     away["pos"][1] - home["pos"][1]) < 2 * DISC_R:
+    # Ensure discs don't start overlapping (capped retries, then force-place).
+    for _ in range(64):
+        if math.hypot(away["pos"][0] - home["pos"][0],
+                      away["pos"][1] - home["pos"][1]) >= 2 * DISC_R:
+            break
         away["pos"] = _rand_pos(rng)
+    else:
+        away["pos"] = [-home["pos"][0], -home["pos"][1]]  # opposite side
 
     frames = []
     for _ in range(n_frames):
@@ -66,7 +72,7 @@ def simulate_motion(match, n_frames, seed=None):
             clash = True
             nx, ny = dx / dist, dy / dist
             overlap = 2 * DISC_R - dist
-            push = overlap / 2 + 1e-4  # extra margin absorbs round(..., 4) shrinkage
+            push = overlap / 2 + 5e-4
             home["pos"][0] -= nx * push
             home["pos"][1] -= ny * push
             away["pos"][0] += nx * push
@@ -77,6 +83,9 @@ def simulate_motion(match, n_frames, seed=None):
             home["vel"][1] += (av - hv) * ny
             away["vel"][0] += (hv - av) * nx
             away["vel"][1] += (hv - av) * ny
+
+        _reflect_inside(home["pos"], home["vel"], DISC_R)
+        _reflect_inside(away["pos"], away["vel"], DISC_R)
 
         frames.append({
             "home": [round(home["pos"][0], 4), round(home["pos"][1], 4)],
