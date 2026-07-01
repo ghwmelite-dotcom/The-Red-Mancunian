@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import engine
 import schema
+import prepare as prepare_mod
 
 
 def _cmd_simulate(args):
@@ -30,6 +31,32 @@ def _cmd_simulate(args):
         print(f"schema error: {e}", file=sys.stderr)
         return 1
     public = {k: v for k, v in m.items() if not k.startswith("_")}
+    text = json.dumps(public, indent=2, ensure_ascii=False)
+    if args.out:
+        out_path = Path(args.out)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(text, encoding="utf-8")
+        print(f"wrote {args.out}")
+    else:
+        print(text)
+    return 0
+
+
+def _cmd_prepare(args):
+    m = engine.simulate(
+        args.home, args.away, competition=args.competition, seed=args.seed,
+        home_xg=args.home_xg, away_xg=args.away_xg,
+        venue=args.venue, stage=args.stage, date=args.date,
+    )
+    try:
+        schema.validate(m)
+    except schema.SchemaError as e:
+        print(f"schema error: {e}", file=sys.stderr)
+        return 1
+    bundle = prepare_mod.prepare(m, n_frames=args.frames)
+    public = {"match": {k: v for k, v in bundle["match"].items()
+                        if not k.startswith("_")},
+              "theme": bundle["theme"], "motion": bundle["motion"]}
     text = json.dumps(public, indent=2, ensure_ascii=False)
     if args.out:
         out_path = Path(args.out)
@@ -56,6 +83,20 @@ def main(argv=None):
     s.add_argument("--date", default="")
     s.add_argument("--out", default=None)
     s.set_defaults(func=_cmd_simulate)
+    p = sub.add_parser("prepare", help="simulate + theme + motion -> render-ready bundle JSON")
+    p.add_argument("--home", required=True)
+    p.add_argument("--away", required=True)
+    p.add_argument("--competition", default="generic")
+    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--home-xg", type=float, default=None, dest="home_xg")
+    p.add_argument("--away-xg", type=float, default=None, dest="away_xg")
+    p.add_argument("--venue", default="")
+    p.add_argument("--stage", default=None)
+    p.add_argument("--date", default="")
+    p.add_argument("--frames", type=int, default=1140,
+                   help="arena motion frames (default 1140 = ~38s at 30fps)")
+    p.add_argument("--out", default=None)
+    p.set_defaults(func=_cmd_prepare)
     args = ap.parse_args(argv)
     return args.func(args)
 
