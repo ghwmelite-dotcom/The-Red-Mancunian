@@ -83,6 +83,17 @@ def build_timeline(bundle, fps=FPS, pre=PRE_SECONDS, live=LIVE_SECONDS,
                 claimed.add(k)
                 break
 
+    # Win-prob swing on each goal frame: the scoring side's jump at that goal.
+    for g in goals:
+        idx = next((i for i, p in enumerate(winprob) if p["minute"] == g["minute"]), None)
+        if idx is None or idx == 0:
+            continue
+        delta = round((winprob[idx][g["team"]] - winprob[idx - 1][g["team"]]) * 100)
+        for f in live_frames:
+            if f.get("goal") is g:
+                f["swing"] = {"team": g["team"], "delta": delta}
+                break
+
     # ---- Act 3: full-time ----
     for i in range(post_n):
         t = i / max(post_n - 1, 1)
