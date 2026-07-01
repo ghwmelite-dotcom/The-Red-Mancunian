@@ -72,22 +72,30 @@ def _arena(img, bundle, motion_frame, cx, cy, r, theme):
     dd = ImageDraw.Draw(ring)
     acc = _acc(theme)
     dd.ellipse([cx - r, cy - r, cx + r, cy + r], outline=(*acc, 255), width=8)
-    glow = ring.filter(ImageFilter.GaussianBlur(14))
+    glow = ring.filter(ImageFilter.GaussianBlur(18))
     img.alpha_composite(glow)
     img.alpha_composite(ring)
 
-    def place(norm, size, disc):
-        ox = cx + norm[0] * (r - size / 2)
-        oy = cy - norm[1] * (r - size / 2)
-        _center(img, disc, ox, oy - size / 2)
+    disc_size = int(r * 0.46)
 
-    disc_size = int(r * 0.42)
-    place(motion_frame["home"], disc_size,
-          draw.orb(disc_size, fx["home"]["color"], fx["home"]["monogram"]))
-    place(motion_frame["away"], disc_size,
-          draw.orb(disc_size, fx["away"]["color"], fx["away"]["monogram"]))
-    bx = cx + motion_frame["ball"][0] * r
-    by = cy - motion_frame["ball"][1] * r
+    def screen(norm, size):
+        return (cx + norm[0] * (r - size / 2), cy - norm[1] * (r - size / 2))
+
+    ball = motion_frame["ball"]
+    dh = (motion_frame["home"][0] - ball[0]) ** 2 + (motion_frame["home"][1] - ball[1]) ** 2
+    da = (motion_frame["away"][0] - ball[0]) ** 2 + (motion_frame["away"][1] - ball[1]) ** 2
+    poss = "home" if dh <= da else "away"
+
+    for side in ("home", "away"):
+        ox, oy = screen(motion_frame[side], disc_size)
+        if side == poss:
+            hl = draw.halo(int(disc_size * 1.7), fx[side]["color"], blur=22)
+            _center(img, hl, ox, oy)
+        disc = draw.orb(disc_size, fx[side]["color"], fx[side]["monogram"])
+        _center(img, disc, ox, oy)
+
+    bx = cx + ball[0] * r
+    by = cy - ball[1] * r
     ImageDraw.Draw(img).ellipse([bx - 9, by - 9, bx + 9, by + 9],
                                 fill=(255, 255, 255, 255))
 
@@ -166,6 +174,14 @@ def _live_frame(bundle, fr):
         _center(img, pill, W / 2, cyr)
         _center(img, draw.text_layer(caption_text, pill_font, (255, 255, 255)),
                 W / 2, cyr + 10)
+
+    if fr.get("goal"):
+        flash = Image.new("RGBA", (W, H), (255, 255, 255, 60))
+        img.alpha_composite(flash)
+        img.alpha_composite(draw.confetti(W, H, seed=fx["seed"] + fr["minute"], n=140),
+                            (0, 0))
+        _center(img, draw.text_layer("GOAL!", draw.font("Anton.ttf", 120),
+                (255, 255, 255)), W / 2, cy - 40)
     return img
 
 
@@ -174,30 +190,35 @@ def _post_frame(bundle, fr):
     fx = match["fixture"]
     an = match["analytics"]
     img = _bg(theme).copy()
-    _center(img, draw.text_layer("FULL TIME", draw.font("BebasNeue.ttf", 52),
+    card = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    _center(card, draw.text_layer("FULL TIME", draw.font("BebasNeue.ttf", 52),
             _acc(theme)), W / 2, 150)
     sh, sa = (int(x) for x in fx["final"].split("-"))
-    _center(img, draw.orb(240, fx["home"]["color"], fx["home"]["monogram"]), W * 0.24, 300)
-    _center(img, draw.orb(240, fx["away"]["color"], fx["away"]["monogram"]), W * 0.76, 300)
-    _center(img, draw.text_layer(f"{sh} : {sa}", draw.font("Anton.ttf", 150),
+    _center(card, draw.orb(240, fx["home"]["color"], fx["home"]["monogram"]), W * 0.24, 300)
+    _center(card, draw.orb(240, fx["away"]["color"], fx["away"]["monogram"]), W * 0.76, 300)
+    _center(card, draw.text_layer(f"{sh} : {sa}", draw.font("Anton.ttf", 150),
             (255, 255, 255)), W / 2, 330)
     winner = fx["home"]["name"] if sh > sa else (fx["away"]["name"] if sa > sh else None)
     if winner:
-        _center(img, draw.text_layer(f"{winner.upper()} WIN", draw.font("Anton.ttf", 56),
+        _center(card, draw.text_layer(f"{winner.upper()} WIN", draw.font("Anton.ttf", 56),
                 hex_to_rgb(theme["gold"])), W / 2, 600)
     panel = draw.glass_panel(W - 160, 520, radius=20)
-    img.alpha_composite(panel, (80, 760))
-    rows = [("POSSESSION", an["possession"]), ("SHOTS", an["shots"]),
-            ("xG", an["xg"])]
+    card.alpha_composite(panel, (80, 760))
+    rows = [("POSSESSION", an["possession"]), ("SHOTS", an["shots"]), ("xG", an["xg"])]
     y = 820
     for label, (hv, av) in rows:
-        _center(img, draw.text_layer(str(hv), draw.font("Anton.ttf", 52), (255, 255, 255)),
+        _center(card, draw.text_layer(str(hv), draw.font("Anton.ttf", 52), (255, 255, 255)),
                 240, y)
-        _center(img, draw.text_layer(label, draw.font("BebasNeue.ttf", 34),
+        _center(card, draw.text_layer(label, draw.font("BebasNeue.ttf", 34),
                 hex_to_rgb(theme["muted"])), W / 2, y + 12)
-        _center(img, draw.text_layer(str(av), draw.font("Anton.ttf", 52), (255, 255, 255)),
+        _center(card, draw.text_layer(str(av), draw.font("Anton.ttf", 52), (255, 255, 255)),
                 W - 240, y)
         y += 130
+    alpha = min(1.0, fr["t"] / 0.35)
+    if alpha < 1.0:
+        r_, g_, b_, a_ = card.split()
+        card = Image.merge("RGBA", (r_, g_, b_, a_.point(lambda v: int(v * alpha))))
+    img.alpha_composite(card)
     return img
 
 
