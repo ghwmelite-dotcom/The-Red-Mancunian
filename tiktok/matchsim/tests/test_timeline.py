@@ -79,3 +79,32 @@ def test_motion_index_in_range():
     for f in tl["frames"]:
         if f["act"] == "live":
             assert 0 <= f["motion_index"] < n
+
+
+def test_two_goals_same_minute_get_distinct_frames():
+    bundle = {
+        "match": {
+            "events": [
+                {"minute": 45, "type": "goal", "team": "home", "scorer": "A",
+                 "scoreAfter": "1-0"},
+                {"minute": 45, "type": "goal", "team": "away", "scorer": "B",
+                 "scoreAfter": "1-1"},
+                {"minute": 90, "type": "full_time", "scoreAfter": "1-1"},
+            ],
+            "winprob": [
+                {"minute": 0, "home": 0.5, "draw": 0.3, "away": 0.2},
+                {"minute": 90, "home": 0.3, "draw": 0.4, "away": 0.3},
+            ],
+            "fixture": {"final": "1-1"},
+        },
+        "motion": [{"home": [0, 0], "away": [0, 0], "ball": [0, 0], "clash": False}] * 50,
+    }
+    tl = build_timeline(bundle, pre=1.0, live=4.0, post=1.0)
+    goal_frames = [f for f in tl["frames"] if f.get("goal")]
+    assert len(goal_frames) == 2
+    # the two goal frames are distinct frames
+    idxs = [i for i, f in enumerate(tl["frames"]) if f.get("goal")]
+    assert len(set(idxs)) == 2
+    # both goal events are represented (distinct scorers)
+    scorers = {f["goal"]["scorer"] for f in goal_frames}
+    assert scorers == {"A", "B"}

@@ -70,12 +70,18 @@ def build_timeline(bundle, fps=FPS, pre=PRE_SECONDS, live=LIVE_SECONDS,
             "goal": None,
         })
 
-    # Mark the single live frame nearest each goal's minute as its goal-frame.
+    # Assign each goal to the nearest UNCLAIMED live frame, so two goals in the
+    # same minute take adjacent frames instead of one overwriting the other.
     live_frames = frames[live_start:live_start + live_n]
-    for g in goals:
-        best_i = min(range(len(live_frames)),
-                     key=lambda k: abs(live_frames[k]["minute"] - g["minute"]))
-        live_frames[best_i]["goal"] = g
+    claimed = set()
+    for g in sorted(goals, key=lambda e: e["minute"]):
+        order = sorted(range(len(live_frames)),
+                       key=lambda k: (abs(live_frames[k]["minute"] - g["minute"]), k))
+        for k in order:
+            if k not in claimed:
+                live_frames[k]["goal"] = g
+                claimed.add(k)
+                break
 
     # ---- Act 3: full-time ----
     for i in range(post_n):
