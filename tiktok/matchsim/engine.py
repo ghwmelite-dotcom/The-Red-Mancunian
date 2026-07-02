@@ -63,6 +63,7 @@ def _disc(team):
     return {
         "name": team["name"], "abbr": team["abbr"], "color": team["color"],
         "monogram": team["monogram"], "crest": team.get("crest"),
+        "flag": team.get("flag"),
     }
 
 

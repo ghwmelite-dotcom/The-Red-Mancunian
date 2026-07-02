@@ -162,6 +162,40 @@ COMPETITIONS = {
 }
 
 
+# Simplified, IP-safe flag stripe sets for national teams: (bands, orientation).
+# Clean tricolours are exact; complex flags (stars/crests/checks) are approximated
+# by their dominant colours. Clubs have no flag and render as colour+monogram orbs.
+FLAGS = {
+    "ENG": (["#FFFFFF", "#CE1124", "#FFFFFF"], "h"),
+    "FRA": (["#0055A4", "#FFFFFF", "#EF4135"], "v"),
+    "ESP": (["#C60B1E", "#FFC400", "#FFC400", "#C60B1E"], "h"),
+    "POR": (["#0E6B34", "#0E6B34", "#C8102E", "#C8102E", "#C8102E"], "v"),
+    "GER": (["#000000", "#DD0000", "#FFCE00"], "h"),
+    "NED": (["#AE1C28", "#FFFFFF", "#21468B"], "h"),
+    "ITA": (["#009246", "#FFFFFF", "#CE2B37"], "v"),
+    "BRA": (["#009C3B", "#FFDF00", "#002776"], "h"),
+    "ARG": (["#74ACDF", "#FFFFFF", "#74ACDF"], "h"),
+    "BEL": (["#000000", "#FDDA24", "#EF3340"], "v"),
+    "CRO": (["#FF0000", "#FFFFFF", "#171796"], "h"),
+    "MAR": (["#C1272D", "#006233"], "h"),
+    "MEX": (["#006847", "#FFFFFF", "#CE1126"], "v"),
+    "USA": (["#3C3B6E", "#FFFFFF", "#B22234"], "h"),
+    "CAN": (["#FF0000", "#FFFFFF", "#FF0000"], "v"),
+    "NOR": (["#BA0C2F", "#FFFFFF", "#00205B"], "h"),
+    "PAR": (["#D52B1E", "#FFFFFF", "#0038A8"], "h"),
+    "AUT": (["#ED2939", "#FFFFFF", "#ED2939"], "h"),
+    "SUI": (["#D52B1E", "#FFFFFF", "#D52B1E"], "h"),
+    "ALG": (["#006233", "#FFFFFF"], "v"),
+    "AUS": (["#00843D", "#FFCD00"], "h"),
+    "EGY": (["#CE1126", "#FFFFFF", "#000000"], "h"),
+    "CPV": (["#003893", "#FFFFFF", "#003893"], "h"),
+    "COL": (["#FCD116", "#FCD116", "#003893", "#CE1126"], "h"),
+    "GHA": (["#CE1126", "#FCD116", "#006B3F"], "h"),
+    "SEN": (["#00853F", "#FDEF42", "#E31B23"], "v"),
+    "JPN": (["#FFFFFF", "#BC002D", "#FFFFFF"], "h"),
+}
+
+
 def resolve_team(x):
     """Accept an abbr key (str) or a dict of overrides. Returns a full record."""
     if isinstance(x, str):
@@ -180,6 +214,7 @@ def resolve_team(x):
     base.setdefault("defense", 1.0)
     base.setdefault("scorers", list(GENERIC_SCORERS))
     base.setdefault("crest", None)
+    base.setdefault("flag", FLAGS.get(base["abbr"].upper()))
     return base
 
 
