@@ -149,7 +149,7 @@ def _live_frame(bundle, fr):
             draw.font("Anton.ttf", 26), (255, 255, 255)), wx + hw_ / 2, bar_y + 8)
     _center(img, draw.text_layer(f"{round(wp['away'] * 100)}%",
             draw.font("Anton.ttf", 26), (10, 14, 42)), wx + ww - aw_ / 2, bar_y + 8)
-    if fr.get("swing"):
+    if fr.get("swing") and fr["swing"]["delta"] > 0:
         sw_ = fr["swing"]
         who = fx[sw_["team"]]["monogram"]
         tag = draw.text_layer(f"UP {who} +{sw_['delta']}%",
