@@ -10,10 +10,10 @@ MARGIN = 64
 def live_zones():
     header = (MARGIN, 96, W - 2 * MARGIN, 70)
     scoreboard = (MARGIN, 186, W - 2 * MARGIN, 130)
-    progress = (MARGIN, 336, W - 2 * MARGIN, 14)
-    winprob = (MARGIN, 376, W - 2 * MARGIN, 96)
+    progress = (MARGIN, 360, W - 2 * MARGIN, 14)
+    winprob = (MARGIN, 400, W - 2 * MARGIN, 96)
 
-    arena_top = 540
+    arena_top = 560
     arena_bottom = H - 250
     r = min((W - 2 * MARGIN) // 2, (arena_bottom - arena_top) // 2)
     cx = W // 2
