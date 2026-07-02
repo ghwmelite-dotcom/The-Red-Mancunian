@@ -4,6 +4,8 @@ Emits a per-frame render schedule so goals, the accelerated clock, the score,
 and the win-prob swing land on exact frames — the piece the renderer needs that
 the raw bundle doesn't carry.
 """
+import math
+
 FPS = 30
 PRE_SECONDS = 5.0
 LIVE_SECONDS = 40.0
@@ -93,6 +95,37 @@ def build_timeline(bundle, fps=FPS, pre=PRE_SECONDS, live=LIVE_SECONDS,
             if f.get("goal") is g:
                 f["swing"] = {"team": g["team"], "delta": delta}
                 break
+
+    # --- Moving goal + ball-into-net scripting (the goal "wow" moment) ---
+    # Goal net sweeps ~270deg around the ring across the match; at each goal the
+    # ball flies into the net (shot_progress 0->1), crosses the line (scored),
+    # then a short celebration window animates the GOAL burst.
+    SHOT = 16
+    CELEB = 20
+    goal_idx = [i for i, f in enumerate(live_frames) if f.get("goal")]
+
+    def _net_angle(i):
+        return math.pi / 2 + (i / max(live_n - 1, 1)) * 2 * math.pi * 0.75
+
+    for i, f in enumerate(live_frames):
+        f["net_angle"] = _net_angle(i)
+        f["scored"] = False
+        f["shot_progress"] = None
+        f["shot_target"] = None
+        f["celebrate"] = None
+
+    for gi in goal_idx:
+        a = _net_angle(gi)
+        tgt = [math.cos(a) * 0.9, math.sin(a) * 0.9]  # ball target = net mouth
+        live_frames[gi]["scored"] = True
+        start = max(0, gi - SHOT)
+        span = gi - start
+        for i in range(start, gi + 1):
+            live_frames[i]["shot_progress"] = (i - start) / span if span else 1.0
+            live_frames[i]["shot_target"] = tgt
+        for i in range(gi, min(live_n, gi + CELEB + 1)):
+            live_frames[i]["celebrate"] = (i - gi) / CELEB
+            live_frames[i]["shot_target"] = tgt  # ball stays in the net during celebration
 
     # ---- Act 3: full-time ----
     for i in range(post_n):

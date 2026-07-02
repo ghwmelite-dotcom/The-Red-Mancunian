@@ -1,14 +1,15 @@
 """Compose the three acts into a PNG frame sequence driven by the timeline.
 
-Act 1 pre-match: competition lockup, KICK OFF IN countdown, team discs + VS.
-Act 2 live: header, rich scoreboard, clock progress, win-prob bar, arena
-            (team discs + ball + goal net), arcade caption, goal flash.
-Act 3 full-time: FULL TIME, big score, winner, analytics panel.
+Brand-first: every act sits on the RED MANCUNIAN textured stadium background
+(ink->dark-red gradient + pitch texture + ghosted watermark + crowd ring), with
+the logo, a bottom brand banner, and a scrolling side ticker. The competition
+only tints the neon arena ring.
 
-Every act sits on a shared textured "stadium" background (pitch stripes + dot
-grid + ghosted watermark + crowd ring), cached per (theme, competition). A
-bottom brand banner and a scrolling side ticker frame every screen.
+The goal "wow" moment is animated: a moving goal net sweeps the ring, the ball
+flies into it (ease-in), and on the score a celebration window pops "GOAL!"
+(ease-out), ripples the net, flashes, and drops confetti.
 """
+import math
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter
@@ -21,20 +22,27 @@ from colors import hex_to_rgb
 W, H = layout.W, layout.H
 
 _bg_cache = {}
-_WATERMARK = {"wc": "26", "ucl": "UCL", "epl": "EPL"}
+
+
+def _eo(t):  # ease-out (entrances)
+    t = 0.0 if t < 0 else (1.0 if t > 1 else t)
+    return 1 - (1 - t) ** 3
+
+
+def _ei(t):  # ease-in (the shot accelerating into the net)
+    t = 0.0 if t < 0 else (1.0 if t > 1 else t)
+    return t ** 3
 
 
 def _bg(theme, competition):
-    """Shared textured stadium background, cached per (theme bg, competition):
-    gradient + pitch texture + ghosted watermark + crowd ring + vignette."""
+    """Shared brand textured stadium background, cached per (bg, competition)."""
     key = (tuple(theme["bg"]), competition)
     if key not in _bg_cache:
         img = draw.gradient_bg(theme["bg"], W, H)
         img.alpha_composite(draw.pitch_texture(W, H))
         cx, cy, r = layout.live_zones()["arena"]
-        wm = _WATERMARK.get(competition, "26")
-        img.alpha_composite(draw.watermark(W, H, wm, cx, cy, 760, alpha=15))
-        seed = sum(ord(c) for c in competition) or 7  # stable, deterministic
+        img.alpha_composite(draw.watermark(W, H, theme["watermark"], cx, cy, 760, alpha=18))
+        seed = sum(ord(c) for c in competition) or 7
         img.alpha_composite(draw.crowd_ring(W, H, cx, cy, r, seed, theme["accent"]))
         v = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         ImageDraw.Draw(v).rectangle([0, H - 300, W, H], fill=(0, 0, 0, 80))
@@ -52,7 +60,6 @@ def _acc(theme):
 
 
 def _frame_base(bundle, fr):
-    """Background copy + bottom banner + scrolling side ticker (all acts)."""
     theme, fx = bundle["theme"], bundle["match"]["fixture"]
     img = _bg(theme, fx["competition"]).copy()
     offset = int(fr.get("t", 0) * 320)
@@ -68,33 +75,50 @@ def _frame_base(bundle, fr):
 def _pre_frame(bundle, fr):
     theme, fx = bundle["theme"], bundle["match"]["fixture"]
     img = _frame_base(bundle, fr)
-    _center(img, draw.text_layer(theme["name"].upper(), draw.font("BebasNeue.ttf", 46),
-                                 hex_to_rgb(theme["muted"])), W / 2, 130)
+    _center(img, draw.logo(96), W / 2, 40)
+    _center(img, draw.text_layer(theme["name"].upper(), draw.font("BebasNeue.ttf", 44),
+                                 hex_to_rgb(theme["muted"])), W / 2, 156)
     _center(img, draw.text_layer(f"KICK OFF IN  {fr['countdown']}",
-                                 draw.font("BebasNeue.ttf", 56), _acc(theme)), W / 2, 320)
+                                 draw.font("BebasNeue.ttf", 56), hex_to_rgb(theme["gold"])),
+            W / 2, 330)
     _center(img, draw.team_disc(300, fx["home"]), W * 0.27, 560)
     _center(img, draw.team_disc(300, fx["away"]), W * 0.73, 560)
-    _center(img, draw.text_layer("VS", draw.font("Anton.ttf", 130),
-                                 (255, 255, 255)), W / 2, 620)
+    _center(img, draw.text_layer("VS", draw.font("Anton.ttf", 130), hex_to_rgb(theme["cream"])),
+            W / 2, 620)
     _center(img, draw.text_layer(fx["home"]["name"].upper(), draw.font("Anton.ttf", 54),
-                                 (255, 255, 255)), W * 0.27, 900)
+                                 hex_to_rgb(theme["cream"])), W * 0.27, 900)
     _center(img, draw.text_layer(fx["away"]["name"].upper(), draw.font("Anton.ttf", 54),
-                                 (255, 255, 255)), W * 0.73, 900)
+                                 hex_to_rgb(theme["cream"])), W * 0.73, 900)
     _center(img, draw.text_layer(f"{theme['name'].upper()}  -  {fx['stage'].upper()}",
                                  draw.font("BebasNeue.ttf", 40),
                                  hex_to_rgb(theme["muted"])), W / 2, 1030)
     return img
 
 
-def _arena(img, bundle, motion_frame, cx, cy, r, theme):
+def _moving_goal(img, cx, cy, r, net_angle, theme):
+    """Bright goal mouth (arc) + net mesh at the current (moving) net angle."""
+    d = ImageDraw.Draw(img)
+    deg = -math.degrees(net_angle)          # PIL screen degrees (y flipped)
+    gold = hex_to_rgb(theme["gold"])
+    d.arc([cx - r, cy - r, cx + r, cy + r], deg - 24, deg + 24, fill=(255, 255, 255, 255), width=16)
+    d.arc([cx - r, cy - r, cx + r, cy + r], deg - 24, deg + 24, fill=(*gold, 255), width=6)
+    for off in range(-20, 21, 8):
+        a2 = net_angle + math.radians(off)
+        d.line([(cx + math.cos(a2) * r, cy - math.sin(a2) * r),
+                (cx + math.cos(a2) * (r - 48), cy - math.sin(a2) * (r - 48))],
+               fill=(255, 255, 255, 120), width=2)
+    for rr in (r - 16, r - 34):
+        d.arc([cx - rr, cy - rr, cx + rr, cy + rr], deg - 24, deg + 24,
+              fill=(255, 255, 255, 90), width=2)
+
+
+def _arena(img, bundle, motion_frame, cx, cy, r, theme, ball_norm):
     fx = bundle["match"]["fixture"]
     ring = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     ImageDraw.Draw(ring).ellipse([cx - r, cy - r, cx + r, cy + r],
                                  outline=(*_acc(theme), 255), width=9)
     img.alpha_composite(ring.filter(ImageFilter.GaussianBlur(16)))
     img.alpha_composite(ring)
-    net = draw.goal_net()
-    img.alpha_composite(net, (int(cx - net.width / 2), int(cy - r - net.height + 12)))
 
     disc_size = int(r * 0.50)
     halo_size = int(disc_size * 1.45)
@@ -114,43 +138,39 @@ def _arena(img, bundle, motion_frame, cx, cy, r, theme):
             _center(img, hl, ox, oy - halo_size / 2)
         _center(img, draw.team_disc(disc_size, fx[side]), ox, oy - disc_size / 2)
 
-    bx, by = cx + ball[0] * r, cy - ball[1] * r
-    ImageDraw.Draw(img).ellipse([bx - 9, by - 9, bx + 9, by + 9], fill=(255, 255, 255, 255))
+    bx, by = cx + ball_norm[0] * r, cy - ball_norm[1] * r
+    ImageDraw.Draw(img).ellipse([bx - 10, by - 10, bx + 10, by + 10], fill=(255, 255, 255, 255))
 
 
-def _scoreboard(img, fr, fx, theme, z):
+def _scoreboard(img, fr, fx, theme, z, score_scale=1.0):
     d = ImageDraw.Draw(img)
     sx, sy, sw, sh = z["scoreboard"]
     home_x, score_x, away_x = z["score_anchors"]
-    # clock tile
     ct = draw.text_layer(fr["clock"], draw.font("Anton.ttf", 50), (10, 20, 14))
     d.rounded_rectangle([sx, sy + 20, sx + ct.width + 40, sy + 20 + ct.height + 18],
-                        radius=12, fill=(255, 255, 255, 235))
+                        radius=12, fill=(255, 245, 240, 240))
     img.alpha_composite(ct, (sx + 20, sy + 28))
-    # team chips + codes
     _center(img, draw.team_disc(46, fx["home"]), home_x - 44, sy + 30)
     img.alpha_composite(draw.text_layer(fx["home"]["monogram"], draw.font("Anton.ttf", 36),
-                        (255, 255, 255)), (int(home_x - 18), sy + 34))
-    aw = draw.text_layer(fx["away"]["monogram"], draw.font("Anton.ttf", 36), (255, 255, 255))
+                        hex_to_rgb(theme["cream"])), (int(home_x - 18), sy + 34))
+    aw = draw.text_layer(fx["away"]["monogram"], draw.font("Anton.ttf", 36), hex_to_rgb(theme["cream"]))
     img.alpha_composite(aw, (int(away_x + 18 - aw.width), sy + 34))
     _center(img, draw.team_disc(46, fx["away"]), away_x + 44, sy + 30)
-    # scores + gold trophy divider
-    _center(img, draw.text_layer(str(fr["score"][0]), draw.font("Anton.ttf", 62),
-            (255, 255, 255)), score_x - 56, sy + 24)
-    _center(img, draw.text_layer(str(fr["score"][1]), draw.font("Anton.ttf", 62),
-            (255, 255, 255)), score_x + 56, sy + 24)
+    ssz = int(62 * score_scale)
+    _center(img, draw.text_layer(str(fr["score"][0]), draw.font("Anton.ttf", ssz),
+            hex_to_rgb(theme["cream"])), score_x - 56, sy + 24 - (ssz - 62) / 2)
+    _center(img, draw.text_layer(str(fr["score"][1]), draw.font("Anton.ttf", ssz),
+            hex_to_rgb(theme["cream"])), score_x + 56, sy + 24 - (ssz - 62) / 2)
     d.ellipse([score_x - 22, sy + 52, score_x + 22, sy + 96], fill=(*hex_to_rgb(theme["gold"]), 255))
-    _center(img, draw.text_layer("*", draw.font("Anton.ttf", 34), (10, 20, 14)),
-            score_x, sy + 48)
-    # competition sub-strip
+    _center(img, draw.text_layer("*", draw.font("Anton.ttf", 34), (30, 12, 12)), score_x, sy + 48)
     strip = draw.text_layer(
         f"{theme['name'].upper()}  -  {fx['stage'].upper()}"
         + (f"  -  {fx['date']}" if fx.get("date") else ""),
         draw.font("BebasNeue.ttf", 26), hex_to_rgb(theme["muted"]), shadow=0)
     ss = Image.new("RGBA", (strip.width + 30, strip.height + 12), (0, 0, 0, 0))
     ImageDraw.Draw(ss).rounded_rectangle([0, 0, ss.width - 1, ss.height - 1], radius=8,
-                                         fill=(255, 255, 255, 20),
-                                         outline=(*hex_to_rgb(theme["muted"]), 70), width=1)
+                                         fill=(255, 255, 255, 18),
+                                         outline=(*hex_to_rgb(theme["gold"]), 90), width=1)
     ss.alpha_composite(strip, (15, 6))
     _center(img, ss, W / 2, sy + sh - 6)
 
@@ -163,23 +183,27 @@ def _live_frame(bundle, fr):
     d = ImageDraw.Draw(img)
 
     hx, hy, hw, hh = z["header"]
+    img.alpha_composite(draw.logo(52), (hx, hy - 8))
     img.alpha_composite(draw.text_layer("THE RED MANCUNIAN",
-                        draw.font("BebasNeue.ttf", 34), hex_to_rgb(theme["text"])), (hx, hy))
-    live = draw.text_layer("LIVE", draw.font("BebasNeue.ttf", 30), (255, 255, 255))
-    lp = Image.new("RGBA", (live.width + 46, live.height + 14), (0, 0, 0, 0))
+                        draw.font("BebasNeue.ttf", 34), hex_to_rgb(theme["text"])), (hx + 62, hy))
+    livetxt = draw.text_layer("LIVE", draw.font("BebasNeue.ttf", 30), (255, 255, 255))
+    lp = Image.new("RGBA", (livetxt.width + 46, livetxt.height + 14), (0, 0, 0, 0))
     ImageDraw.Draw(lp).rounded_rectangle([0, 0, lp.width - 1, lp.height - 1], radius=16,
-                                         fill=(200, 20, 20, 235))
+                                         fill=(*hex_to_rgb(theme["red"]), 240))
     ImageDraw.Draw(lp).ellipse([12, lp.height / 2 - 5, 22, lp.height / 2 + 5], fill=(255, 255, 255, 255))
-    lp.alpha_composite(live, (30, 7))
+    lp.alpha_composite(livetxt, (30, 7))
     img.alpha_composite(lp, (hx + hw - lp.width, hy - 4))
 
-    _scoreboard(img, fr, fx, theme, z)
+    cel = fr.get("celebrate")
+    score_scale = 1.0 + 0.3 * (1 - _eo(min(1.0, (cel or 0) / 0.4))) if cel is not None else 1.0
+    _scoreboard(img, fr, fx, theme, z, score_scale=score_scale)
 
     px, py, pw, ph = z["progress"]
     d.rounded_rectangle([px, py, px + pw, py + ph], radius=ph // 2, fill=(255, 255, 255, 40))
     fillw = int(pw * fr["t"])
     if fillw >= ph:
-        d.rounded_rectangle([px, py, px + fillw, py + ph], radius=ph // 2, fill=(*_acc(theme), 255))
+        d.rounded_rectangle([px, py, px + fillw, py + ph], radius=ph // 2,
+                            fill=(*hex_to_rgb(theme["gold"]), 255))
 
     wx, wy, ww, wh = z["winprob"]
     img.alpha_composite(draw.text_layer("LIVE WIN PROBABILITY - DIXON-COLES",
@@ -203,22 +227,48 @@ def _live_frame(bundle, fr):
 
     cx, cy, r = z["arena"]
     mi = fr["motion_index"]
-    _arena(img, bundle, bundle["motion"][mi], cx, cy, r, theme)
+    mfr = bundle["motion"][mi]
+    # ball position: flying into the net during a shot, in the net during a goal,
+    # otherwise the ambient clash-drift ball.
+    if fr.get("shot_target") is not None:
+        tgt = fr["shot_target"]
+        sp = fr.get("shot_progress")
+        if sp is not None and sp < 1.0:
+            p = _ei(sp)
+            ball_norm = [tgt[0] * p, tgt[1] * p]
+        else:
+            ball_norm = tgt
+    else:
+        ball_norm = mfr["ball"]
 
-    caption_text = None
-    if fr.get("goal"):
-        caption_text = captions.caption_for(fr["goal"], fx["seed"], sum(fr["score"]))
-    elif bundle["motion"][mi]["clash"]:
-        caption_text = captions.caption_for({"type": "near_miss", "flavour": "clash"},
-                                            fx["seed"], mi)
-    if caption_text:
-        _center(img, draw.caption_pill(caption_text, theme["gold"]), W / 2, z["caption"][1])
+    _moving_goal(img, cx, cy, r, fr["net_angle"], theme)
+    _arena(img, bundle, mfr, cx, cy, r, theme, ball_norm)
 
-    if fr.get("goal"):
-        img.alpha_composite(Image.new("RGBA", (W, H), (255, 255, 255, 60)))
-        img.alpha_composite(draw.confetti(W, H, seed=fx["seed"] + fr["minute"], n=140), (0, 0))
-        _center(img, draw.text_layer("GOAL!", draw.font("Anton.ttf", 120), (255, 255, 255)),
-                W / 2, cy - 40)
+    if cel is not None:
+        na = fr["net_angle"]
+        nx, ny = cx + math.cos(na) * r, cy - math.sin(na) * r
+        rd = ImageDraw.Draw(img)
+        for k in range(3):
+            rr = int(24 + cel * 170 + k * 34)
+            a = max(0, int(210 * (1 - cel) - k * 45))
+            if a > 0:
+                rd.ellipse([nx - rr, ny - rr, nx + rr, ny + rr], outline=(255, 255, 255, a), width=4)
+        fa = int(90 * (1 - cel))
+        if fa > 0:
+            img.alpha_composite(Image.new("RGBA", (W, H), (255, 255, 255, fa)))
+        img.alpha_composite(draw.confetti(W, H, seed=fx["seed"] + fr["minute"], n=150), (0, 0))
+        gsize = int(60 + 82 * _eo(min(1.0, cel / 0.4)))
+        _center(img, draw.text_layer("GOAL!", draw.font("Anton.ttf", gsize), (255, 255, 255)),
+                W / 2, cy - gsize / 2)
+    else:
+        caption_text = None
+        if fr.get("goal"):
+            caption_text = captions.caption_for(fr["goal"], fx["seed"], sum(fr["score"]))
+        elif mfr["clash"]:
+            caption_text = captions.caption_for({"type": "near_miss", "flavour": "clash"},
+                                                fx["seed"], mi)
+        if caption_text:
+            _center(img, draw.caption_pill(caption_text, theme["gold"]), W / 2, z["caption"][1])
     return img
 
 
@@ -228,27 +278,28 @@ def _post_frame(bundle, fr):
     an = match["analytics"]
     img = _frame_base(bundle, fr)
     card = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    _center(card, draw.wordmark(560), W / 2, 70)
     _center(card, draw.text_layer("FULL TIME", draw.font("BebasNeue.ttf", 52),
-            _acc(theme)), W / 2, 150)
+            hex_to_rgb(theme["gold"])), W / 2, 210)
     sh, sa = (int(x) for x in fx["final"].split("-"))
-    _center(card, draw.team_disc(240, fx["home"]), W * 0.24, 300)
-    _center(card, draw.team_disc(240, fx["away"]), W * 0.76, 300)
+    _center(card, draw.team_disc(240, fx["home"]), W * 0.24, 340)
+    _center(card, draw.team_disc(240, fx["away"]), W * 0.76, 340)
     _center(card, draw.text_layer(f"{sh} : {sa}", draw.font("Anton.ttf", 150),
-            (255, 255, 255)), W / 2, 330)
+            hex_to_rgb(theme["cream"])), W / 2, 370)
     winner = fx["home"]["name"] if sh > sa else (fx["away"]["name"] if sa > sh else None)
     if winner:
         _center(card, draw.text_layer(f"{winner.upper()} WIN", draw.font("Anton.ttf", 56),
-                hex_to_rgb(theme["gold"])), W / 2, 600)
-    panel = draw.glass_panel(W - 160, 520, radius=20)
-    card.alpha_composite(panel, (80, 760))
+                hex_to_rgb(theme["gold"])), W / 2, 640)
+    panel = draw.glass_panel(W - 160, 500, radius=20)
+    card.alpha_composite(panel, (80, 800))
     rows = [("POSSESSION", an["possession"]), ("SHOTS", an["shots"]), ("xG", an["xg"])]
-    y = 820
+    y = 856
     for label, (hv, av) in rows:
-        _center(card, draw.text_layer(str(hv), draw.font("Anton.ttf", 52), (255, 255, 255)), 240, y)
+        _center(card, draw.text_layer(str(hv), draw.font("Anton.ttf", 52), hex_to_rgb(theme["cream"])), 240, y)
         _center(card, draw.text_layer(label, draw.font("BebasNeue.ttf", 34),
                 hex_to_rgb(theme["muted"])), W / 2, y + 12)
-        _center(card, draw.text_layer(str(av), draw.font("Anton.ttf", 52), (255, 255, 255)), W - 240, y)
-        y += 130
+        _center(card, draw.text_layer(str(av), draw.font("Anton.ttf", 52), hex_to_rgb(theme["cream"])), W - 240, y)
+        y += 128
     alpha = min(1.0, fr["t"] / 0.35)
     if alpha < 1.0:
         r_, g_, b_, a_ = card.split()

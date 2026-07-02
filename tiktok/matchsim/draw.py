@@ -304,3 +304,25 @@ def side_ticker(h, text, muted_hex="#8fd6b8", width=60, offset=0):
         lay.alpha_composite(unit, (int(width / 2 - unit.width / 2), int(y)))
         y += step
     return lay
+
+
+_img_cache = {}
+
+
+def logo(size):
+    """The RED MANCUNIAN circular logo-avatar, resized + cached."""
+    key = ("logo", size)
+    if key not in _img_cache:
+        im = Image.open(FONTS.parent / "logo-avatar.png").convert("RGBA")
+        _img_cache[key] = im.resize((size, size), Image.LANCZOS)
+    return _img_cache[key]
+
+
+def wordmark(width):
+    """The RED MANCUNIAN wordmark, scaled to a width (aspect preserved), cached."""
+    key = ("wordmark", width)
+    if key not in _img_cache:
+        im = Image.open(FONTS.parent / "logo-wordmark.png").convert("RGBA")
+        h = max(1, round(im.height * width / im.width))
+        _img_cache[key] = im.resize((width, h), Image.LANCZOS)
+    return _img_cache[key]
