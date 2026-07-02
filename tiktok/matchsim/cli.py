@@ -102,9 +102,10 @@ def _render_one(home, away, competition, seed, out_mp4,
         encode.encode(td, out_mp4, fps=fps, sfx_events=sfx)
     fx = m["fixture"]
     tags = COMP_HASHTAG.get(competition, "")
+    tag_str = f" {tags}" if tags else ""
     caption = (f"{fx['home']['name']} {fx['final']} {fx['away']['name']} - "
                f"a {bundle['theme']['name']} simulation. Who wins the rematch? "
-               f"Comment your scoreline. #matchsim #football {tags}\n{DISCLAIMER}")
+               f"Comment your scoreline. #matchsim #football{tag_str}\n{DISCLAIMER}")
     out_mp4.with_name(out_mp4.stem + "-caption.txt").write_text(caption, encoding="utf-8")
     notes = (f"POST PLAN - {fx['home']['name']} vs {fx['away']['name']}\n"
              f"1. Upload {out_mp4.name} to TikTok.\n"

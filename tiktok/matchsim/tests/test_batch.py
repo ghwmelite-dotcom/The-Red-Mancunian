@@ -43,6 +43,7 @@ def test_batch_isolates_a_failing_fixture(tmp_path):
          "--out-dir", str(out_dir), "--pre", "1", "--live", "1", "--post", "1"],
         capture_output=True, text=True,
     )
+    assert r.returncode == 0, r.stderr
     assert (out_dir / "mun-vs-rma.mp4").exists()
     assert not (out_dir / "zzz-vs-rma.mp4").exists()
 
