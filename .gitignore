@@ -5,3 +5,13 @@ tiktok/output/
 silent.mp4
 automation/state/
 world-cup/
+
+# scratch/byproduct artifacts — not source
+.match-analyst-extracted/
+manutd.html
+.superpowers/
+
+# secrets — never commit. .env.example is the only tracked env file.
+.env
+.env.*
+!.env.example
